@@ -2,6 +2,9 @@
 # define MINI_SHELL_H
 # include <errno.h>
 #define MAX_FD 1024  // Adjust this based on your system's limits
+#define GREEN "\001\033[1;32m\002"
+#define RESET "\001\033[0m\002"
+
 typedef struct s_fd_tracker {
     int fd_table[MAX_FD];
     int qout;
@@ -44,6 +47,16 @@ typedef struct s_command_context
     int *exit_status;
     t_fd_tracker *fd_tracker;
 } t_command_context;
+
+typedef struct s_command_context1 {
+    t_arg *cmd;
+    t_env *env;
+    int *exit_status;
+    t_io *io;
+    int (*pipe_fds)[2];
+    int command_count;
+    int pipe_count;
+} t_command_context1;
 
 typedef struct s_execution_data {
     t_io io;
@@ -135,13 +148,7 @@ void    save_original_io(t_io *io);
 
 int setup_pipes(int pipe_count, int pipe_fds[][2], t_fd_tracker *fd_tracker);/////
 
-// void setup_child_process(child_setup_params *params);
-
-// int fork_and_execute(t_arg *cmd, t_env *env, int *exit_status, int cmd_index, int pipe_count, int pipe_fds[][2], int *heredoc_fds, pid_t *pid);
-int fork_and_execute(fork_execute_params *params);
-// int execute_builtin_command(t_arg *current_cmd, t_env *env, int *exit_status, t_io *io);
-// void setup_child_process(int cmd_index, int pipe_count, int pipe_fds[][2], int *heredoc_fds, int heredoc_count);
-// void setup_child_process(int cmd_index, int pipe_count, int pipe_fds[MAX_PIPES][2], t_arg *current_cmd);
+void initialize_loop_iteration(t_token **tokens);
 void setup_child_process(child_setup_params *params);
 
 // void setup_child_process(t_arg *cmd, int cmd_index, int pipe_count, int pipe_fds[MAX_PIPES][2]);
@@ -238,10 +245,16 @@ void track_fd(t_fd_tracker *tracker, int fd);
 void untrack_fd(t_fd_tracker *tracker, int fd);
 void close_all_fds(t_fd_tracker *tracker);
 
+/*CLEANUP*/
+
+void cleanup_heredoc_fds(t_arg *cmd, t_fd_tracker *fd_tracker);
+void cleanup_pipes(t_command_context1 *ctx);
+
 /*heredoc helpers*/
 
 void child_process(int pipefd[2], const char *delimiter, t_env *env, t_fd_tracker *fd_tracker);
 void parent_process(int pipefd[2], pid_t pid, t_fd_tracker *fd_tracker);
 int check_if_qoutes(char *s);
-
+int setup_and_handle_heredocs(t_setup_context *ctx);
+int process_commands(t_command_context1 *ctx, pid_t *pids);
 #endif

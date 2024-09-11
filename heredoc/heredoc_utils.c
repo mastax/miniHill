@@ -43,13 +43,8 @@ char *read_line(void)
     int bytes_read;
     int total_size = 0;
 
-    while ((bytes_read = read(STDIN_FILENO, buffer, BUFFER_SIZE)) > 0) {
-        // if (read_line_interrupted)
-        // {
-        //     free(line);
-        //     return NULL;
-        // }
-
+    while ((bytes_read = read(STDIN_FILENO, buffer, BUFFER_SIZE)) > 0)
+    {
         line = append_buffer(line, buffer, bytes_read, &total_size);
         if (!line)
             return NULL;

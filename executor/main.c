@@ -1,36 +1,41 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 16:56:05 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/07 13:26:28 by elel-bah         ###   ########.fr       */
+/*   Created: 2024/09/11 20:57:42 by elel-bah          #+#    #+#             */
+/*   Updated: 2024/09/11 20:57:43 by elel-bah         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../mini_shell.h"
 
 void	free_command(t_arg *cmd)
 {
-	t_arg *tmp;
-	
+	int		i;
+	t_arg	*tmp;
+
 	if (!cmd)
 		return ;
-
-	// Free arguments
 	while (cmd)
 	{
-		tmp = cmd->next;//if(cmd->arg != NULL)
-		for (int i = 0; cmd->arg && cmd->arg[i]; i++)
-			free(cmd->arg[i]);//if (cmd->srg[i] != NULL)free()
+		i = 0;
+		while (cmd->arg && cmd->arg[i])
+		{
+			free(cmd->arg[i]);
+			i++;
+		}
 		free(cmd->arg);
-		// Free redirections
-		for (int i = 0; cmd->red && cmd->red[i]; i++)
+		i = 0;
+		while (cmd->red && cmd->red[i])
+		{
 			free(cmd->red[i]);
+			i++;
+		}
 		free(cmd->red);
-		// Free the command structure itself
+		tmp = cmd->next;
 		free(cmd);
 		cmd = tmp;
 	}
@@ -63,16 +68,15 @@ void	save_original_io(t_io *io)
 	io->original_stdout = dup(STDOUT_FILENO);
 }
 
-
 int	main(int ac, char **av, char **envp)
 {
-	// t_io	io;
-	t_env	*env;
-	int		status;
-	t_fd_tracker fd_tracker = {0};  // Initialize all elements to 0
+	t_env			*env;
+	int				status;
+	t_fd_tracker	fd_tracker;
 
 	(void)ac;
 	(void)av;
+	fd_tracker = {0};
 	rl_catch_signals = 0;
 	env = create_env(envp);
 	if (!env)

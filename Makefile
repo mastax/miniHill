@@ -9,7 +9,10 @@ SRC = builtin/cd.c \
       builtin/unset.c \
       builtin/builtin_executer.c \
       executor/cmd_executer_utils.c \
-      executor/execute_command_utils.c \
+      executor/cleanup.c \
+      executor/leaks_fd_check.c \
+      executor/setup.c \
+      executor/execute_command_utils1.c \
       executor/execute_command.c \
       executor/find_command.c \
       executor/main_loop.c \
