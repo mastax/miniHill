@@ -6,7 +6,7 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:43:46 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/11 18:21:53 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/08/19 20:12:24 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_check_qoutes(char	*line)
 		{
 			i = ft_handle_quotes(line, i);
 			if (i == -1)
-				return (ft_putstr_fd("Error: Unmatched quotet\n", 2), -1);
+				return (printf("Error: Unmatched quotet\n"), -1);
 		}
 		else
 			i++;

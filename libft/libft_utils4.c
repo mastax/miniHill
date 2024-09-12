@@ -76,31 +76,67 @@ int	ft_isalpha(int c)
 	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }
 
-char	*ft_strtok(char *str, const char *delim)
-{
-	static char	*stock;
-	char		*ptr;
-	int			flg;
+char *ft_strtok(char *str, const char *delim) {
+    static char *stock = NULL;
+    char *ptr;
+    int flg = 0;
 
-	flg = 0;
-	ptr = NULL;
-	stock = NULL;
-	if (str != NULL)
-		stock = ft_strdup(str);
-	while (*stock != '\0')
-	{
-		if (flg == 0 && !ft_strchr(delim, *stock))
-		{
-			flg = 1;
-			ptr = stock;
-		}
-		else if (flg == 1 && ft_strchr(delim, *stock))
-		{
-			*stock = '\0';
-			stock += 1;
-			break ;
-		}
-		stock += 1;
-	}
-	return (ptr);
+    if (str != NULL) {
+        free(stock);  // Free previous allocation
+        stock = ft_strdup(str);
+        if (stock == NULL) return NULL;  // Check for allocation failure
+    } else if (stock == NULL) {
+        return NULL;  // Nothing to tokenize
+    }
+
+    ptr = stock;
+    while (*stock != '\0') {
+        if (flg == 0 && !ft_strchr(delim, *stock)) {
+            flg = 1;
+            ptr = stock;
+        } else if (flg == 1 && ft_strchr(delim, *stock)) {
+            *stock = '\0';
+            stock++;
+            return ptr;
+        }
+        stock++;
+    }
+
+    if (flg) {
+        stock = NULL;  // Indicate end of tokenization
+        return ptr;
+    }
+
+    free(stock);  // Free if no token found
+    stock = NULL;
+    return NULL;
 }
+
+// char	*ft_strtok(char *str, const char *delim)
+// {
+// 	static char	*stock;
+// 	char		*ptr;
+// 	int			flg;
+
+// 	flg = 0;
+// 	ptr = NULL;
+// 	stock = NULL;
+// 	if (str != NULL)
+// 		stock = ft_strdup(str);
+// 	while (*stock != '\0')
+// 	{
+// 		if (flg == 0 && !ft_strchr(delim, *stock))
+// 		{
+// 			flg = 1;
+// 			ptr = stock;
+// 		}
+// 		else if (flg == 1 && ft_strchr(delim, *stock))
+// 		{
+// 			*stock = '\0';
+// 			stock += 1;
+// 			break ;
+// 		}
+// 		stock += 1;
+// 	}
+// 	return (ptr);
+// }

@@ -179,7 +179,8 @@ void	ft_putstr_fd(char *str, int fd);
 char	*ft_remove_quotes(char *s);
 // int		expanden(t_token **token, char **env);
 int	expanding(t_token **token, t_env *env, int exit_status, t_type prv_type);
-int	expanding_helper(char *s, int i);
+
+int	expanding_helper(char *s, int i);///last
 // int	get_token(t_token **token, char	*s);
 int		ft_skipe_spaces(char *s, int index);
 char    *ft_remove_char(char *s, unsigned int index);
@@ -193,6 +194,8 @@ int	parsing(char *line, t_token	**token, t_env *env, int exit_status);
 t_arg	*ft_arg_new(int fd);
 void	ft_argadd_back(t_arg **lst, t_arg *new);
 t_arg	*ft_arglast(t_arg	*lst);
+int	check_can_expand(char *var_name, t_env *env, t_type prv_type, t_token *t);
+void	ft_handl_exp_qout(t_token *t);
 
 // int is_pipe_token(t_arg *arg);
 // t_arg *get_next_arg(t_arg *arg);

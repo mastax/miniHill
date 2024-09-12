@@ -6,7 +6,7 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 10:03:08 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/11 18:25:39 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:22:42 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,17 @@ int	ft_check_error(t_token *token)
 	if (!token)
 		return (0);
 	if (token->type == PIPE)
-	{
-		ft_putstr_fd("syntax error near unexpected token '", 2);
-		ft_putstr_fd(token->next->content, 2);
-		ft_putstr_fd("'\n", 2);
-		return (258);
-	}
+		return (printf("syntax error near unexpected token '%s'\n"
+				, token->content), 258);
 	while (token->next)
 	{
 		if (check_pipe(token, token->next) != 0
 			|| check_redirect(token, token->next) != 0)
-			{
-				ft_putstr_fd("syntax error near unexpected token '", 2);
-				ft_putstr_fd(token->next->content, 2);
-				ft_putstr_fd("'\n", 2);
-				return (258);
-			}
+			return (printf("syntax error near unexpected token '%s'\n"
+					, token->next->content), 258);
 		token = token->next;
 	}
 	if (token->type != WORD)
-		return (ft_putstr_fd("syntax error near unexpected token 'newline'\n", 2), 258);
+		return (printf("syntax error near unexpected token 'newline'\n"), 258);
 	return (0);
 }
