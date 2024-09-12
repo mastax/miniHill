@@ -45,12 +45,13 @@ SRC = builtin/cd.c \
       heredoc/heredoc.c \
       heredoc/heredoc_utils.c \
       heredoc/heredoc_utils1.c \
+      heredoc/read_line.c \
       signals/handle_signals.c \
       signals/sig_help.c \
 	  mini_shell.c
 OBJ = $(SRC:.c=.o)
 RM = rm -f
-FLAGC = -Wall -Wextra -Werror #-g -fsanitize=address
+FLAGC = -Wall -Wextra -Werror -g -fsanitize=address
 LDFLAGS = -lreadline
 HEADER = mini_shell.h
 READLINEDIR = $(shell brew --prefix readline)

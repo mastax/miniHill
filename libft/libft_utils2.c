@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   libft_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 16:57:10 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/08/29 16:57:29 by elel-bah         ###   ########.fr       */
+/*   Created: 2024/09/12 20:49:06 by elel-bah          #+#    #+#             */
+/*   Updated: 2024/09/12 20:49:08 by elel-bah         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../mini_shell.h"
 
@@ -49,14 +49,12 @@ int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
-int ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-  // Iterate over characters until null terminator or mismatch is found
-  while (*s1 != '\0' && *s1 == *s2)
-  {
-	s1++;
-    s2++;
-  }
-  // Return the difference between the characters where mismatch occurred
-  return (*s1 - *s2);
+	while (*s1 != '\0' && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
 }

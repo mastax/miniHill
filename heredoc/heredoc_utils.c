@@ -1,66 +1,16 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/28 21:17:09 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/04 11:55:00 by elel-bah         ###   ########.fr       */
+/*   Created: 2024/09/12 13:25:38 by elel-bah          #+#    #+#             */
+/*   Updated: 2024/09/12 13:25:40 by elel-bah         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../mini_shell.h"
-
-#define BUFFER_SIZE 1024
-
-static char *append_buffer(char *line, char *buffer, int bytes_read, int *total_size)
-{
-    char *new_line;
-    int new_size = *total_size + bytes_read + 1;
-
-    new_line = malloc(new_size);
-    if (!new_line)
-    {
-        free(line);
-        return NULL;
-    }
-    if (line)
-    {
-        ft_memcpy(new_line, line, *total_size);
-        free(line);
-    }
-    ft_memcpy(new_line + *total_size, buffer, bytes_read);
-    *total_size = new_size - 1;
-    new_line[*total_size] = '\0';
-    return new_line;
-}
-
-char *read_line(void)
-{
-    char *line = NULL;
-    char buffer[BUFFER_SIZE];
-    int bytes_read;
-    int total_size = 0;
-
-    while ((bytes_read = read(STDIN_FILENO, buffer, BUFFER_SIZE)) > 0)
-    {
-        line = append_buffer(line, buffer, bytes_read, &total_size);
-        if (!line)
-            return NULL;
-        if (line[total_size - 1] == '\n') {
-            line[total_size - 1] = '\0';
-            return line;
-        }
-    }
-
-    if (bytes_read == -1 || (bytes_read == 0 && total_size == 0)) {
-        free(line);
-        return NULL;
-    }
-
-    return line;
-}
 
 int	ft_expand_herdoc_var(char **var, t_env *env, t_type prv_type, int i)
 {
@@ -89,50 +39,49 @@ int	ft_expand_herdoc_var(char **var, t_env *env, t_type prv_type, int i)
 	return (0);
 }
 
-int expand_variable(char **line, t_env *env)
+int	expand_variable(char **line, t_env *env)
 {
-    char *expanded_line;
+	char	*expanded_line;
 
-    expanded_line = ft_strdup(*line);
-    if (expanded_line == NULL)
-    {
-        perror("ft_strdup");
-        free(*line);
-        return -1;
-    }
-    if (ft_expand_herdoc_var(&expanded_line, env, WORD, 0) == -1)
-    {
-        free(expanded_line);
-        free(*line);
-        return -1;
-    }
-
-    free(*line);
-    *line = expanded_line;
-    return 0;
+	expanded_line = ft_strdup(*line);
+	if (expanded_line == NULL)
+	{
+		perror("ft_strdup");
+		free(*line);
+		return (-1);
+	}
+	if (ft_expand_herdoc_var(&expanded_line, env, WORD, 0) == -1)
+	{
+		free(expanded_line);
+		free(*line);
+		return (-1);
+	}
+	free(*line);
+	*line = expanded_line;
+	return (0);
 }
 
-int write_to_pipe(int pipefd[2], char *line)
+int	write_to_pipe(int pipefd[2], char *line)
 {
-    write(pipefd[1], line, ft_strlen(line));
-    write(pipefd[1], "\n", 1);
-    return 0;
+	write(pipefd[1], line, ft_strlen(line));
+	write(pipefd[1], "\n", 1);
+	return (0);
 }
 
-int count_heredocs(char **red)
+int	count_heredocs(char **red)
 {
-    int count;
-    int i;
+	int	count;
+	int	i;
 
-    count = 0;
-    i = 0;
-    if (!red || !(*red))
-        return (0);
-    while (red[i] != NULL)
-    {
-        if (ft_strcmp(red[i], "<<") == 0)
-            count++;
-        i++;
-    }
-    return count;
+	count = 0;
+	i = 0;
+	if (!red || !(*red))
+		return (0);
+	while (red[i] != NULL)
+	{
+		if (ft_strcmp(red[i], "<<") == 0)
+			count++;
+		i++;
+	}
+	return (count);
 }

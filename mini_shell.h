@@ -6,13 +6,12 @@
 #define RESET "\001\033[0m\002"
 
 typedef struct s_fd_tracker {
-    int fd_table[MAX_FD];
-    int qout;
+	int fd_table[MAX_FD];
+	int qout;
 } t_fd_tracker;
 
 # include "./include/struct.h"
 # include "./include/libft.h"
-# include "./include/exe_struct_hlp.h"
 
 
 # include <sys/wait.h>
@@ -32,43 +31,42 @@ typedef struct s_fd_tracker {
 #define BUFFER_SIZE 1024
 
 typedef struct s_setup_context {
-    t_arg *cmd;
-    t_env *env;
-    t_io *io;
-    int (*pipe_fds)[2];
-    int *command_count;
-    int *pipe_count;
+	t_arg *cmd;
+	t_env *env;
+	t_io *io;
+	int (*pipe_fds)[2];
+	int *command_count;
+	int *pipe_count;
 } t_setup_context;
 
 typedef struct s_command_context
 {
-    t_arg *cmd;
-    t_env *env;
-    int *exit_status;
-    t_fd_tracker *fd_tracker;
+	t_arg *cmd;
+	t_env *env;
+	int *exit_status;
+	t_fd_tracker *fd_tracker;
 } t_command_context;
 
 typedef struct s_command_context1 {
-    t_arg *cmd;
-    t_env *env;
-    int *exit_status;
-    t_io *io;
-    int (*pipe_fds)[2];
-    int command_count;
-    int pipe_count;
+	t_arg *cmd;
+	t_env *env;
+	int *exit_status;
+	t_io *io;
+	int (*pipe_fds)[2];
+	int command_count;
+	int pipe_count;
 } t_command_context1;
 
 typedef struct s_execution_data {
-    t_io io;
-    int command_count;
-    int pipe_count;
-    int pipe_fds[MAX_PIPES][2];
+	t_io io;
+	int command_count;
+	int pipe_count;
+	int pipe_fds[MAX_PIPES][2];
 } t_execution_data;
 
 
 
 
-t_sig g_sig;
 
 // get_path
 char	*ft_get_path(char *cmd, int *exit_status);
@@ -95,7 +93,7 @@ int ft_env(t_env *env);
 int ft_change_dir(char **av, t_env *env, int *exit_status);
 int change_to_home(t_env *env);
 int change_to_previous(t_env *env);
-                    /*PIP - HELPER FUNCTIONS*/
+					/*PIP - HELPER FUNCTIONS*/
 
 char **split_pipeline(char *line);
 void redirect_io(int input_fd, int output_fd);
@@ -110,20 +108,20 @@ int wait_and_cleanup(int *pids, int num_commands, int prev_input, int temp_stdou
 int handle_pipeline(char **commands, t_env *env);
 
 void    free_argv(char **av);
-                    /*UNSET - HELPER FUNCTIONS*/
+					/*UNSET - HELPER FUNCTIONS*/
 
 
-                    /*EXPORT - HELPER FUNCTIONS*/
+					/*EXPORT - HELPER FUNCTIONS*/
 
 int     check_format(char *arg);
 int     print_error(int error_code, char *content);
 void    print_sorted_env(t_env *env);
 int     parse_export_string(char *s, char **name, char **value, int *is_append);
 
-                    /*exit BUiLTIN*/
+					/*exit BUiLTIN*/
 
 int     ft_is_arg_nbr(char *ar);
-                    /*THE BUILTIN*/
+					/*THE BUILTIN*/
 
 int		ft_echo(char **av);
 int ft_exit(char **av, int *exit_status);
@@ -132,7 +130,7 @@ int ft_exports(t_env *env, char **args, int *exit_status);
 int ft_unsets(t_env *env, char **args, int *exit_status);
 
 int append_new_var(t_env *env, char *s);
-                    /*THE_EXECUTOR*/
+					/*THE_EXECUTOR*/
 
 int main_shell_loop(t_env *env, t_fd_tracker *fd_tracker);
 // int     main_shell_loop(t_env *env);
@@ -149,7 +147,7 @@ void    save_original_io(t_io *io);
 int setup_pipes(int pipe_count, int pipe_fds[][2], t_fd_tracker *fd_tracker);/////
 
 void initialize_loop_iteration(t_token **tokens);
-void setup_child_process(child_setup_params *params);
+void setup_child_process(t_child_setup_params *params);
 
 // void setup_child_process(t_arg *cmd, int cmd_index, int pipe_count, int pipe_fds[MAX_PIPES][2]);
 void cleanup_parent_process(int *heredoc_fds, int heredoc_count);
@@ -257,4 +255,5 @@ void parent_process(int pipefd[2], pid_t pid, t_fd_tracker *fd_tracker);
 int check_if_qoutes(char *s);
 int setup_and_handle_heredocs(t_setup_context *ctx);
 int process_commands(t_command_context1 *ctx, pid_t *pids);
+void	cleanup_and_return(int *heredoc_fds, int count, t_fd_tracker *tracker);
 #endif

@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:54:16 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/04 14:20:36 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:37:14 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../mini_shell.h"
 
@@ -157,6 +157,55 @@ char	*ft_add_space(char *line)
 // 		return (NULL);
 // }
 
+int	ft_remove_h_qoute(t_token *t)
+{
+	int i;
+	
+	i = 0;
+	while (t->content[i] != '\0')
+	{
+		if (t->content[i] == 127)
+		{
+			t->content = ft_remove_char(t->content, i);
+			if (!t->content)
+			{
+				ft_putstr_fd("minishell : malloc error\n", 2);
+				return (-1);
+			}
+		}
+		else
+			i++;
+	}
+	return (0);
+}
+
+int check_for_herdoc_isempty(t_token *tmp)
+{
+	while (tmp)
+	{
+		if (tmp->content[ft_skipe_spaces(tmp->content, 0)] == '\0')
+			tmp->is_empty = true;
+		if (tmp->qout_rm == true)
+		{
+			tmp->content = ft_remove_quotes(tmp->content);
+			if (!tmp->content)
+			{
+				ft_putstr_fd("minishell : malloc error\n", 2);
+				return (-1);
+			}
+		}
+		else if (tmp->qout_rm == false)
+		{
+			if (ft_remove_h_qoute(tmp) == -1)
+				return (-1);
+		}
+		if (tmp->type == HER_DOC && tmp->next != NULL)//add for the heredoc problem
+            tmp = tmp->next;
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 int	parsing(char *line, t_token	**token, t_env *env, int exit_status)
 {
 	t_token	*tmp;
@@ -172,16 +221,18 @@ int	parsing(char *line, t_token	**token, t_env *env, int exit_status)
 	if (expanding(token, env, exit_status, WORD) == -1)
 		return (-1);
 	tmp = *token;
-	while (tmp)
-	{
-		if (tmp->content[ft_skipe_spaces(tmp->content, 0)] == '\0')
-			tmp->is_empty = true;
-		if (tmp->qout_rm == true)
-			tmp->content = ft_remove_quotes(tmp->content);
-		if (tmp->type == HER_DOC && tmp->next != NULL)//add for the heredoc problem
-            tmp = tmp->next;
-		// printf("2!!  Token : {%s}------->>>>>>>> Type : [%s]\n", tmp->content, print_type(tmp->type));
-		tmp = tmp->next;
-	}
+	// while (tmp)
+	// {
+	// 	if (tmp->content[ft_skipe_spaces(tmp->content, 0)] == '\0')
+	// 		tmp->is_empty = true;
+	// 	if (tmp->qout_rm == true)
+	// 		tmp->content = ft_remove_quotes(tmp->content);
+	// 	if (tmp->type == HER_DOC && tmp->next != NULL)//add for the heredoc problem
+    //         tmp = tmp->next;
+	// 	// printf("2!!  Token : {%s}------->>>>>>>> Type : [%s]\n", tmp->content, print_type(tmp->type));
+	// 	tmp = tmp->next;
+	// }
+	if (check_for_herdoc_isempty(tmp) == -1)
+		return (-1);
 	return (free(line), ft_check_error(*token));
 }

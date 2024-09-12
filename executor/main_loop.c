@@ -34,7 +34,8 @@ static int	process_command(t_token *tokens, t_env *env)
 	t_command_context	context;
 
 	exit_status = get_exit_status(-500);
-	fd_tracker = {0};
+	ft_memset(&fd_tracker, 0, sizeof(fd_tracker));
+	// fd_tracker = {0};
 	if (!tokens)
 		return (0);
 	cmd = ft_arg_new(2);

@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   libft_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 16:56:39 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/08/31 17:47:52 by elel-bah         ###   ########.fr       */
+/*   Created: 2024/09/12 20:48:33 by elel-bah          #+#    #+#             */
+/*   Updated: 2024/09/12 20:48:34 by elel-bah         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../mini_shell.h"
 
@@ -48,17 +48,18 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-size_t ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-    int i;
+	int	i;
 
-    i = 0;
+	i = 0;
 	if (!s)
 		return (0);
-    while(s[i])
-        i++;
-    return(i);
+	while (s[i])
+		i++;
+	return (i);
 }
+
 char	*ft_concat(char *s1, char *s2)
 {
 	int		i;
@@ -84,6 +85,5 @@ char	*ft_concat(char *s1, char *s2)
 	while (s2[j] != '\0')
 		s[i++] = s2[j++];
 	s[i] = '\0';
-	// free(s1);
 	return (s);
 }

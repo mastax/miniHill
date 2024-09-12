@@ -76,7 +76,8 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	fd_tracker = {0};
+	ft_memset(&fd_tracker, 0, sizeof(fd_tracker));
+	// fd_tracker = {0};
 	rl_catch_signals = 0;
 	env = create_env(envp);
 	if (!env)

@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   libft_utils4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 16:57:44 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/08/29 16:57:45 by elel-bah         ###   ########.fr       */
+/*   Created: 2024/09/12 20:48:52 by elel-bah          #+#    #+#             */
+/*   Updated: 2024/09/12 20:48:53 by elel-bah         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../mini_shell.h"
 
@@ -71,35 +71,36 @@ char	**ft_split(char const *s, char c)
 	return (result);
 }
 
-int ft_isalpha(int c)
+int	ft_isalpha(int c)
 {
-    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }
 
 char	*ft_strtok(char *str, const char *delim)
 {
-    static char *stock = NULL;
-    char *ptr;
-    int flg;
+	static char	*stock;
+	char		*ptr;
+	int			flg;
 
-    flg = 0;
-    ptr = NULL;
-    if (str != NULL)
-        stock = ft_strdup(str);
-    while (*stock != '\0')
-    {
-        if (flg == 0 && !ft_strchr(delim, *stock))
-        {
-            flg = 1;
-            ptr = stock;
-        }
-        else if (flg == 1 && ft_strchr(delim, *stock))
-        {
-            *stock = '\0';
-            stock += 1;
-            break;
-        }
-        stock += 1;
-    }
-    return (ptr);
+	flg = 0;
+	ptr = NULL;
+	stock = NULL;
+	if (str != NULL)
+		stock = ft_strdup(str);
+	while (*stock != '\0')
+	{
+		if (flg == 0 && !ft_strchr(delim, *stock))
+		{
+			flg = 1;
+			ptr = stock;
+		}
+		else if (flg == 1 && ft_strchr(delim, *stock))
+		{
+			*stock = '\0';
+			stock += 1;
+			break ;
+		}
+		stock += 1;
+	}
+	return (ptr);
 }
