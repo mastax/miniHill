@@ -66,7 +66,6 @@ int	execute_command(t_command_context *context)
 	t_command_context1	cmd_ctx;
 	int					result;
 
-	// exec_data = {0};
 	ft_memset(&exec_data, 0, sizeof(exec_data));
 	exec_data.command_count = 0;
 	exec_data.pipe_count = 0;

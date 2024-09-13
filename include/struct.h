@@ -21,6 +21,19 @@
 # include <string.h>
 # include <stdbool.h>
 # include <signal.h>
+# include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
+
+# define MAX_PIPES 100
+# define MAX_FD 1024  // Adjust this based on your system's limits
+typedef struct s_fd_tracker
+{
+	int	fd_table[MAX_FD];
+	int	qout;
+}	t_fd_tracker;
 
 typedef struct x_arg
 {
@@ -50,7 +63,6 @@ typedef struct s_tokenz
 	struct s_tokenz	*next;
 }	t_token;
 
-// Add this to your header file (mini_shell.h)
 typedef struct s_env
 {
 	char	**env_vars;
@@ -95,5 +107,52 @@ typedef struct child_setup_params
 	int	*heredoc_fds;
 	int	heredoc_count;
 }	t_child_setup_params;
+
+//=-=--=-=-=-=-=-
+
+typedef struct s_setup_context
+{
+	t_arg	*cmd;
+	t_env	*env;
+	t_io	*io;
+	int		(*pipe_fds)[2];
+	int		*command_count;
+	int		*pipe_count;
+}	t_setup_context;
+
+typedef struct s_command_context
+{
+	t_arg			*cmd;
+	t_env			*env;
+	int				*exit_status;
+	t_fd_tracker	*fd_tracker;
+}	t_command_context;
+
+typedef struct s_command_context1
+{
+	t_arg	*cmd;
+	t_env	*env;
+	int		*exit_status;
+	t_io	*io;
+	int		(*pipe_fds)[2];
+	int		command_count;
+	int		pipe_count;
+}	t_command_context1;
+
+typedef struct s_process_data
+{
+	t_command_context1	*ctx;
+	pid_t				*pids;
+	int					child_count;
+	int					cmd_index;
+}	t_process_data;
+
+typedef struct s_execution_data
+{
+	t_io	io;
+	int		command_count;
+	int		pipe_count;
+	int		pipe_fds[MAX_PIPES][2];
+}	t_execution_data;
 
 #endif

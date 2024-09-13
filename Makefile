@@ -14,6 +14,7 @@ SRC = builtin/cd.c \
       executor/setup.c \
       executor/execute_command_utils1.c \
       executor/execute_command.c \
+      executor/process_commands.c \
       executor/find_command.c \
       executor/main_loop.c \
       executor/create_env.c \
