@@ -6,36 +6,11 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:53:21 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/08/13 09:53:47 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:18:30 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
-
-char	*ft_remove_char(char *s, unsigned int index)
-{
-	unsigned int	i;
-	int				j;
-	char			*str;
-
-	i = 0;
-	j = 0;
-	if (ft_strlen(s) < index || !s)
-		return (NULL);
-	str = malloc(ft_strlen(s));
-	if (!str)
-		return (printf("Error :remove_char can't alloc\n"), free(s), NULL);
-	while (s[i] != '\0')
-	{
-		if (i == index)
-			i++;
-		else
-			str[j++] = s[i++];
-	}
-	str[j] = '\0';
-	free(s);
-	return (str);
-}
 
 char	*ft_handle_quotes(char *s, int *i)
 {
@@ -66,7 +41,7 @@ char	*ft_handle_quotes(char *s, int *i)
 		return (NULL);
 }
 
-char	*ft_remove_quotes(char *s)
+char	*ft_remove_quotes1(char *s)
 {
 	int	i;
 
@@ -93,4 +68,66 @@ char	*ft_remove_quotes(char *s)
 		}
 	}
 	return (s);
+}
+
+int	get_char_index(char *s, int index, char c)
+{
+	if (index == -1)
+		index = 0;
+	while (s[index] != '\0')
+	{
+		if (s[index] == c)
+			return (index);
+		index++;
+	}
+	return (-1);
+}
+
+static int	handle_quote(t_token *t, int *st1, int *st2, char qout)
+{
+	int	end1;
+	int	end2;
+
+	*st2 = get_char_index(t->befor_exp, *st2, qout);
+	if (*st2 == -1)
+		return (1);
+	end1 = get_char_index(t->content, *st1 + 1, qout);
+	end2 = get_char_index(t->befor_exp, *st2 + 1, qout);
+	if (end1 == -1 || end2 == -1)
+		return (0);
+	t->content = ft_remove_char(t->content, *st1);
+	t->content = ft_remove_char(t->content, end1 - 1);
+	t->befor_exp = ft_remove_char(t->befor_exp, *st2);
+	t->befor_exp = ft_remove_char(t->befor_exp, end2 - 1);
+	if (!t->befor_exp || !t->content)
+	{
+		ft_putstr_fd("minishell: malloc error\n", 2);
+		return (-1);
+	}
+	*st1 = end1 - 1;
+	*st2 = end2 - 1;
+	return (2);
+}
+
+int	ft_remove_quotes(t_token *t, int st1, int st2)
+{
+	int	result;
+
+	while (t->content[st1] != '\0')
+	{
+		if (t->content[st1] == '\'' || t->content[st1] == '"')
+		{
+			result = handle_quote(t, &st1, &st2, t->content[st1]);
+			if (result == 0 || result == -1)
+				return (result);
+			if (result == 1)
+			{
+				st1++;
+				continue ;
+			}
+		}
+		else
+			st1++;
+	}
+	return (0);
 }

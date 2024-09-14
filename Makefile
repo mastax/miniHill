@@ -8,7 +8,6 @@ SRC = builtin/cd.c \
       builtin/pwd.c \
       builtin/unset.c \
       builtin/builtin_executer.c \
-      executor/cmd_executer_utils.c \
       executor/cleanup.c \
       executor/leaks_fd_check.c \
       executor/setup.c \
@@ -27,6 +26,7 @@ SRC = builtin/cd.c \
       libft/libft_utils3.c \
       libft/libft_utils4.c \
       libft/libft_utils5.c \
+      builtin/builtin_helpers/cd_helper.c \
       builtin/builtin_helpers/export_helper.c \
       builtin/builtin_helpers/export_helpers1.c \
       builtin/builtin_helpers/set_env_value.c \
@@ -41,6 +41,8 @@ SRC = builtin/cd.c \
       parsing/utils.c \
       parsing/utils1.c \
       parsing/utils2.c \
+      parsing/token_to_arg_helper.c \
+      parsing/expanding_helper.c \
       parsing/expand_exit_status.c\
       parsing/arg_utils.c \
       heredoc/heredoc.c \

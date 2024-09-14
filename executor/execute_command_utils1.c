@@ -83,138 +83,43 @@ void	execute_child_process_part1(t_command_context1 *ctx,
 	execute_child_process_part2(ctx, current_cmd);
 }
 
-//=-=-=-=-
-// static void	execute_child_process(t_command_context1 *ctx, t_arg *current_cmd)
-// {
-// 	int		builtin_result;
-// 	char	*cmd_path;
+void	free_env(t_env *env)
+{
+	int	i;
 
-// 	if (current_cmd->arg == NULL || current_cmd->arg[0] == NULL)
-// 		exit(0);
-// 	if (is_builtin(current_cmd->arg[0]))
-// 	{
-// 		builtin_result = execute_builtin_ch(current_cmd, ctx->env,
-// 				ctx->exit_status);
-// 		exit(builtin_result);
-// 	}
-// 	if (current_cmd->arg[0][0] == '\0')
-// 	{
-// 		ft_putstr_fd(": command not found\n", 2);
-// 		exit(127);
-// 	}
-// 	cmd_path = ft_get_path(current_cmd->arg[0], ctx->exit_status);
-// 	if (cmd_path == NULL)
-// 		cmd_path = find_command(current_cmd->arg[0], ctx->env->env_vars);
-// 	if (!cmd_path)
-// 	{
-// 		ft_putstr_fd(current_cmd->arg[0], 2);
-// 		ft_putstr_fd(": command not found\n", 2);
-// 		exit(127);
-// 	}
-// 	execve(cmd_path, current_cmd->arg, ctx->env->env_vars);
-// 	perror("execve");
-// 	exit(1);
-// }
+	i = 0;
+	if (!env)
+		return ;
+	while (i < env->count)
+	{
+		free(env->env_vars[i]);
+		i++;
+	}
+	free(env->env_vars);
+	free(env);
+}
 
-//=--=--=-=--=
+int	is_builtin(const char *cmd)
+{
+	int			i;
+	const char	*builtins[8];
 
-// static int	handle_parent_process(t_command_context1 *ctx, t_arg *current_cmd,
-// 		pid_t *pids, int cmd_index)
-// {
-// 	pids[cmd_index] = fork();
-// 	if (pids[cmd_index] == -1)
-// 	{
-// 		perror("fork");
-// 		restore_io(ctx->io);
-// 		return (0);
-// 	}
-// 	else if (pids[cmd_index] == 0)
-// 	{
-// 		configure_child_io(ctx, current_cmd, cmd_index);
-// 		execute_child_process_part1(ctx, current_cmd);
-// 	}
-// 	restore_io(ctx->io);
-// 	return (1);
-// }
-
-// static void	handle_parent_builtin(t_command_context1 *ctx, t_arg *current_cmd)
-// {
-// 	if (apply_redirections(current_cmd->red) == -1)
-// 	{
-// 		restore_io(ctx->io);
-// 		return ;
-// 	}
-// 	execute_builtin_p(current_cmd, ctx->env, ctx->exit_status);
-// 	restore_io(ctx->io);
-// }
-
-// static void	process_single_command(t_process_data *data, t_arg *current_cmd)
-// {
-// 	int	is_builtins;
-// 	int	is_parent_builtin;
-
-// 	is_builtins = current_cmd->arg != NULL
-// 		&& is_builtin(current_cmd->arg[0]);
-// 	is_parent_builtin = is_builtins
-// 		&& (ft_strcmp(current_cmd->arg[0], "cd") == 0
-// 			|| ft_strcmp(current_cmd->arg[0], "exit") == 0
-// 			|| ft_strcmp(current_cmd->arg[0], "export") == 0
-// 			|| ft_strcmp(current_cmd->arg[0], "unset") == 0);
-// 	if (is_parent_builtin && data->ctx->pipe_count == 0)
-// 		handle_parent_builtin(data->ctx, current_cmd);
-// 	else
-// 		data->child_count += handle_parent_process(data->ctx, current_cmd,
-// 				data->pids, data->cmd_index);
-// 	get_pid(data->pids[data->cmd_index]);
-// }
-
-// int	process_commands(t_command_context1 *ctx, pid_t *pids)
-// {
-// 	t_process_data	data;
-// 	t_arg			*current_cmd;
-
-// 	data.ctx = ctx;
-// 	data.pids = pids;
-// 	data.child_count = 0;
-// 	data.cmd_index = 0;
-// 	current_cmd = ctx->cmd;
-// 	while (current_cmd)
-// 	{
-// 		process_single_command(&data, current_cmd);
-// 		current_cmd = current_cmd->next;
-// 		data.cmd_index++;
-// 	}
-// 	return (data.child_count);
-// }
-//=-=-=-=-=-=
-// int	process_commands(t_command_context1 *ctx, pid_t *pids)
-// {
-// 	int		is_builtins;
-// 	int		is_parent_builtin;
-// 	int		child_count;
-// 	int		cmd_index;
-// 	t_arg	*current_cmd;
-
-// 	child_count = 0;
-// 	cmd_index = 0;
-// 	current_cmd = ctx->cmd;
-// 	while (current_cmd)
-// 	{
-// 		is_builtins = current_cmd->arg != NULL
-// 			&& is_builtin(current_cmd->arg[0]);
-// 		is_parent_builtin = is_builtins
-// 			&& (ft_strcmp(current_cmd->arg[0], "cd") == 0
-// 				|| ft_strcmp(current_cmd->arg[0], "exit") == 0
-// 				|| ft_strcmp(current_cmd->arg[0], "export") == 0
-// 				|| ft_strcmp(current_cmd->arg[0], "unset") == 0);
-// 		if (is_parent_builtin && ctx->pipe_count == 0)
-// 			handle_parent_builtin(ctx, current_cmd);
-// 		else
-// 			child_count += handle_parent_process(ctx, current_cmd,
-// 					pids, cmd_index);
-// 		get_pid(pids[cmd_index]);
-// 		current_cmd = current_cmd->next;
-// 		cmd_index++;
-// 	}
-// 	return (child_count);
-// }
+	i = 0;
+	builtins[0] = "echo";
+	builtins[1] = "cd";
+	builtins[2] = "pwd";
+	builtins[3] = "export";
+	builtins[4] = "unset";
+	builtins[5] = "env";
+	builtins[6] = "exit";
+	builtins[7] = NULL;
+	if (cmd == NULL)
+		return (0);
+	while (builtins[i])
+	{
+		if (ft_strcmp(cmd, builtins[i]) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}

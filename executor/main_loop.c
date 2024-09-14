@@ -35,7 +35,6 @@ static int	process_command(t_token *tokens, t_env *env)
 
 	exit_status = get_exit_status(-500);
 	ft_memset(&fd_tracker, 0, sizeof(fd_tracker));
-	// fd_tracker = {0};
 	if (!tokens)
 		return (0);
 	cmd = ft_arg_new(2);
@@ -115,7 +114,6 @@ int	main_shell_loop(t_env *env, t_fd_tracker *fd_tracker)
 		}
 		if (process_input(input, env, &tokens, &exit_status) == -1)
 			close_all_fds(fd_tracker);
-		// close_all_fds(fd_tracker);
 	}
 	close_all_fds(fd_tracker);
 	return (exit_status);

@@ -53,7 +53,7 @@ int	process_delimiter(char **red, int i, t_delimiter_info *info)
 	}
 	info->tracker->qout = check_if_qoutes(*(info->delimiter));
 	if (info->tracker->qout == 1)
-		*(info->processed_delimiter) = ft_remove_quotes(*(info->delimiter));
+		*(info->processed_delimiter) = ft_remove_quotes1(*(info->delimiter));
 	else
 		*(info->processed_delimiter) = *(info->delimiter);
 	return (*(info->processed_delimiter) != NULL);

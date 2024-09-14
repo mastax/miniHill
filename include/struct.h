@@ -56,6 +56,7 @@ typedef enum s_type
 typedef struct s_tokenz
 {
 	char			*content;
+	char            *befor_exp;
 	int				type;
 	bool			qout_rm;
 	bool			is_empty;

@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:55:47 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/08/31 17:55:56 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:14:31 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../mini_shell.h"
 
@@ -27,32 +27,32 @@ char	*get_var_from_env(char *var, int var_len, t_env *env)
 	return (NULL);
 }
 
-int	expanding_helper(char *s, int i)
+int	had_qout(char *s)
 {
-	if (s[i] == '\'')
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
 	{
+		if (s[i] == '\'' || s[i] == '"')
+			return (0);
 		i++;
-		while (s[i] != '\0' && s[i] != '\'')
-			i++;
-		if (s[i] == '\'')
-			i++;
-		return (i);
 	}
-	return (0);
+	return (1);
 }
 
 int	check_can_expand(char *var_name, t_env *env, t_type prv_type, t_token *t)
 {
 	if (prv_type == WORD || prv_type == PIPE)
 	{
-		if (t->content[0] != '"' && t->content[0] != '\'')
+		if (had_qout(t->content) == 1)
 			t->qout_rm = false;
 		return (1);
 	}
 	else if ((get_var_from_env(var_name, t->j, env) != NULL)
 		&& (prv_type == APPEND || prv_type == RED_IN || prv_type == RED_OUT))
 	{
-		if (t->content[0] != '"' && t->content[0] != '\'')
+		if (had_qout(t->content) == 1)
 			t->qout_rm = false;
 		return (1);
 	}
@@ -112,7 +112,7 @@ int	expanding(t_token **token, t_env *env, int exit_status, t_type prv_type)
 			if (ft_expand_exit_status(&t->content, exit_status, 0) == -1)
 				return (ft_putstr_fd("minishell : malloc error", 2), -1);
 		}
-		if (ft_have_sp_tb(t->content) == 1)
+		if (ft_have_sp_tb(t->content) != ft_have_sp_tb(t->befor_exp))
 		{
 			if (ft_handl_spichel_cond(token, t, t->next, &prv_type) == -1)
 				return (-1);

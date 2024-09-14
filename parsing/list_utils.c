@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:55:02 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/08/31 17:58:56 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:04:06 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../mini_shell.h"
 
@@ -60,6 +60,9 @@ t_token	*ft_list_new(char *token, int z)
 	if (!data)
 		return (write(2, "Error\n can't malloc for new_data\n", 34), NULL);
 	data->content = token;
+	data->befor_exp = ft_strdup(token);
+	if (!data->befor_exp)
+		return (write(2, "Error\n can't malloc for new_data\n", 34), NULL);
 	if (z == 1)
 	{
 		data->type = ft_get_type(token);

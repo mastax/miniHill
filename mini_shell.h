@@ -100,7 +100,13 @@ int		get_token(t_token **token, char	*s, int z);
 void	free_tokens(t_token *tokens);
 int		ft_check_error(t_token *token);
 void	ft_putstr_fd(char *str, int fd);
-char	*ft_remove_quotes(char *s);
+
+char    *ft_remove_quotes1(char *s);
+int        ft_remove_quotes(t_token *t, int st1, int st2);
+
+int	count_args_red(t_token *token, int type, int i);
+char	**ft_handl_args(char *content, char **arv, int type);
+
 int		expanding(t_token **token, t_env *env, int exit_status,
 			t_type prv_type);
 int		expanding_helper(char *s, int i);

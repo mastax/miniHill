@@ -71,6 +71,7 @@ void	cleanup_heredoc_fds(t_arg *cmd, t_fd_tracker *fd_tracker)
 		current_cmd = current_cmd->next;
 	}
 }
+
 void	cleanup_and_return(int *heredoc_fds, int count, t_fd_tracker *tracker)
 {
 	int	j;

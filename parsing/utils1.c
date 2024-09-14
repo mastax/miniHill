@@ -6,7 +6,7 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:43:46 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/08/19 20:12:24 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:41:07 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_check_qoutes(char	*line)
 		{
 			i = ft_handle_quotes(line, i);
 			if (i == -1)
-				return (printf("Error: Unmatched quotet\n"), -1);
+				return (ft_putstr_fd("Error: Unmatched quotet\n", 2), -1);
 		}
 		else
 			i++;
@@ -80,7 +80,6 @@ int	get_token_len(char	*s, int i)
 	int	j;
 
 	j = i;
-	// printf("1%c--%d\n", s[i], i);
 	if (s[i] == '"' || s[i] == '\'')
 		i = ft_skipe_qoute(s, i);
 	else
@@ -91,7 +90,6 @@ int	get_token_len(char	*s, int i)
 		if (s[i] == '"' || s[i] == '\'')
 			i = ft_skipe_qoute(s, i);
 	}
-	// printf("2%c--%d\n", s[i], i);
 	return (i - j);
 }
 
@@ -114,7 +112,6 @@ int	get_token(t_token **token, char	*s, int z)
 		contant = ft_substr(s, i, j);
 		if (!contant)
 			return (-1);
-		// printf("%s\n", contant);
 		new = ft_list_new(contant, z);
 		if (!new)
 			return (-1);

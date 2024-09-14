@@ -1,61 +1,16 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expand_exit_status.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <elel-bah@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 10:01:40 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/04 15:03:01 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:14:58 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../mini_shell.h"
-
-int	ft_var_update(int i, char **var, char *to_update, char	*secend_part)
-{
-	char	*first_part;
-	char	*update_var;
-
-	first_part = NULL;
-	if (i == 0 && !to_update)
-		first_part = ft_strdup("");
-	else if (i == 0 && to_update)
-		first_part = ft_strdup(to_update);
-	else if (i != 0 && !to_update)
-		first_part = ft_strndup(*var, i);
-	else if (i != 0 && to_update)
-		first_part = ft_strjoin(ft_strndup(*var, i), to_update);
-	if (!first_part)
-		return (-1);
-	update_var = ft_strjoin(first_part, secend_part);
-	if (!update_var)
-	{
-		free(first_part);
-		return (-1);
-	}
-	free(*var);
-	*var = update_var;
-	return (0);
-}
-
-int	ft_strncmp(char *s1, const char *s2, size_t n)
-{
-	size_t			i;
-	unsigned char	*str1;
-	unsigned char	*str2;
-
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	i = 0;
-	while (i < n && (str1[i] != '\0' && str2[i] != '\0'))
-	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
-		i++;
-	}
-	return (0);
-}
 
 int	check_induble(char *s, int i)
 {
@@ -79,6 +34,24 @@ int	check_induble(char *s, int i)
 		}
 		else
 			j++;
+	}
+	return (0);
+}
+
+int	ft_strncmp(char *s1, const char *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	while (i < n && (str1[i] != '\0' && str2[i] != '\0'))
+	{
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
 	}
 	return (0);
 }
@@ -109,9 +82,9 @@ int	ft_exit_update(char **var, int i, char *exit_str, char *secend_part)
 	return (0);
 }
 
-int ft_handle_dolar(char **var, int *i)
+int	ft_handle_dolar(char **var, int *i)
 {
-	char qout;
+	char	qout;
 
 	qout = var[0][*i + 1];
 	if ((*i != 0) && (var[0][*i - 1] == qout))

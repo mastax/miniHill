@@ -73,26 +73,6 @@ int	setup_pipes(int pipe_count, int pipe_fds[][2], t_fd_tracker *fd_tracker)
 	return (0);
 }
 
-// int	setup_pipes(int pipe_count, int pipe_fds[][2], t_fd_tracker *fd_tracker)
-// {
-// 	int	i;
-
-// 	(void)fd_tracker;
-// 	i = 0;
-// 	while (i < pipe_count)
-// 	{
-// 		if (pipe(pipe_fds[i]) == -1)
-// 		{
-// 			perror("pipe");
-// 			return (1);
-// 		}
-// 		track_fd(fd_tracker, pipe_fds[i][0]);
-// 		track_fd(fd_tracker, pipe_fds[i][1]);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
 void	setup_child_process(t_child_setup_params *params)
 {
 	int	i;
