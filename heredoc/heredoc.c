@@ -59,6 +59,34 @@ int	process_delimiter(char **red, int i, t_delimiter_info *info)
 	return (*(info->processed_delimiter) != NULL);
 }
 
+// int create_heredoc(const char *delimiter, t_env *env, t_fd_tracker *tracker)
+// {
+//     int pipefd[2];
+//     pid_t pid;
+
+//     if (pipe(pipefd) == -1)
+//         return (perror("pipe"), -1);
+//     track_fd(tracker, pipefd[0]);
+//     track_fd(tracker, pipefd[1]);
+//     get_in_heredoc(1);/////
+//     pid = fork();
+//     if (pid == -1)
+//     {
+//         (perror("fork"), close(pipefd[0]), close(pipefd[1]));
+//         untrack_fd(tracker, pipefd[0]);
+//         untrack_fd(tracker, pipefd[1]);
+//         return (get_in_heredoc(0), -1);
+//     }
+//     if (pid == 0) { // Child process
+//         signal(SIGINT, SIG_DFL);
+//         (child_process(pipefd, delimiter, env, tracker), exit(0));
+//     } else { // Parent process
+//         parent_process(pipefd, pid, tracker);
+//         get_in_heredoc(0);
+//         return (untrack_fd(tracker, pipefd[1]), pipefd[0]);
+//     }
+// } 
+
 static int	setup_heredoc_process(int pipefd[2],
 		t_fd_tracker *tracker, pid_t *pid)
 {

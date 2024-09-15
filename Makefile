@@ -1,6 +1,9 @@
 NAME = minishell
 CC = cc
-SRC = builtin/cd.c \
+     
+SRC = signals/handle_signals.c \
+      signals/sig_sig.c \
+      builtin/cd.c \
       builtin/echo.c \
       builtin/env.c \
       builtin/exit.c \
@@ -19,7 +22,6 @@ SRC = builtin/cd.c \
       executor/create_env.c \
       executor/env_helper.c  \
       executor/get_path.c  \
-      executor/main.c \
       libft/libft_utils.c \
       libft/libft_utils1.c \
       libft/libft_utils2.c \
@@ -49,12 +51,11 @@ SRC = builtin/cd.c \
       heredoc/heredoc_utils.c \
       heredoc/heredoc_utils1.c \
       heredoc/read_line.c \
-      signals/handle_signals.c \
-      signals/sig_help.c \
+      executor/main.c \
 	  mini_shell.c
 OBJ = $(SRC:.c=.o)
 RM = rm -f
-FLAGC = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGC = -Wall -Wextra -Werror #-g -fsanitize=address
 LDFLAGS = -lreadline
 HEADER = mini_shell.h
 READLINEDIR = $(shell brew --prefix readline)
