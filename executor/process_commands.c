@@ -15,6 +15,11 @@
 static int	handle_parent_process(t_command_context1 *ctx, t_arg *current_cmd,
 		pid_t *pids, int cmd_index)
 {
+	if (cmd_index >= MAX_PIPES) {
+        fprintf(stderr, "Error: Too many piped commands\n");
+        restore_io(ctx->io);
+        return 0;
+    }
 	pids[cmd_index] = fork();
 	if (pids[cmd_index] == -1)
 	{

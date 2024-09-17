@@ -18,7 +18,7 @@
 
 # define GREEN "\001\033[1;32m\002"
 # define RESET "\001\033[0m\002"
-# define MAX_COMMANDS 101
+# define MAX_COMMANDS 1024
 # define STDIN_FILENO 0
 # define STDOUT_FILENO 1
 # define BUFFER_SIZE 1024

@@ -27,7 +27,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 
-# define MAX_PIPES 100
+# define MAX_PIPES 1024
 # define MAX_FD 1024  // Adjust this based on your system's limits
 typedef struct s_fd_tracker
 {
@@ -116,6 +116,7 @@ typedef struct s_setup_context
 	t_arg	*cmd;
 	t_env	*env;
 	t_io	*io;
+	// int		**pipe_fds;
 	int		(*pipe_fds)[2];
 	int		*command_count;
 	int		*pipe_count;
