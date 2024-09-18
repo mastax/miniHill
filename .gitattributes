@@ -1,22 +1,14 @@
-# Ensure all text files have normalized (LF) line endings
+# Handle line endings
 * text=auto
 
-# Explicitly declare text files you want to always be normalized and converted
-# to native line endings on checkout.
-*.c text
-*.h text
-*.md text
-Makefile text
-
-# Declare files that will always have LF line endings on checkout.
-*.sh text eol=lf
-
-# Denote all files that are truly binary and should not be modified.
+# Treat specific file types as binary
 *.png binary
 *.jpg binary
+*.so binary
 
-# Preserve executable bit
-* -text
+# Text files
+*.c text
+*.h text
 
-# Preserve the modification time of files
-* -ident
+# Merge strategies for specific files
+*.lock merge=ours
