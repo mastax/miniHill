@@ -116,7 +116,6 @@ typedef struct s_setup_context
 	t_arg	*cmd;
 	t_env	*env;
 	t_io	*io;
-	// int		**pipe_fds;
 	int		(*pipe_fds)[2];
 	int		*command_count;
 	int		*pipe_count;

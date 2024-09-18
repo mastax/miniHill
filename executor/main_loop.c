@@ -15,7 +15,6 @@
 static int	handle_input(char *input, t_env *env)
 {
 	(void)env;
-
 	if (!input)
 	{
 		ft_putstr_fd("\nExiting shell.\n", 1);

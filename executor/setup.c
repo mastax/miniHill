@@ -55,7 +55,7 @@ int	setup_pipes(int pipe_count, int pipe_fds[][2], t_fd_tracker *fd_tracker)
 
 	if (pipe_count < 0 || pipe_count > MAX_PIPES)
 	{
-		printf("minishell: fork: Resource temporarily unavailable\n");
+		printf("fork: Resource temporarily unavailable\n");
 		return (1);
 	}
 	i = 0;

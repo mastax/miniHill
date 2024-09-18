@@ -24,8 +24,8 @@
 # define BUFFER_SIZE 1024
 
 /* SIGNALS*/
-void	sig_init(void);
 void	sig_int(int code);
+void	sig_init(void);
 void	sig_quit(int code);
 int		get_sigint(int n);
 int		get_sigquit(int n);
@@ -171,5 +171,4 @@ int		check_if_qoutes(char *s);
 int		setup_and_handle_heredocs(t_setup_context *ctx);
 int		process_commands(t_command_context1 *ctx, pid_t *pids);
 void	cleanup_and_return(int *heredoc_fds, int count, t_fd_tracker *tracker);
-
 #endif

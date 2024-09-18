@@ -1,8 +1,8 @@
 NAME = minishell
 CC = cc
      
-SRC = signals/handle_signals.c \
-      signals/sig_sig.c \
+SRC = signals/sig_helper.c \
+      signals/handle_signals.c \
       builtin/cd.c \
       builtin/echo.c \
       builtin/env.c \
@@ -55,7 +55,7 @@ SRC = signals/handle_signals.c \
 	  mini_shell.c
 OBJ = $(SRC:.c=.o)
 RM = rm -f
-FLAGC = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGC = -Wall -Wextra -Werror #-g -fsanitize=address
 LDFLAGS = -lreadline
 HEADER = mini_shell.h
 READLINEDIR = $(shell brew --prefix readline)

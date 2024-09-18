@@ -50,6 +50,7 @@ void	free_tokens(t_token *tokens)
 		tmp = tokens;
 		tokens = tokens->next;
 		free(tmp->content);
+		free(tmp->befor_exp);
 		free(tmp);
 	}
 }
