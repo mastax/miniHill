@@ -1,8 +1,8 @@
 NAME = minishell
 CC = cc
      
-SRC = signals/sig_helper.c \
-      signals/handle_signals.c \
+SRC = signals/handle_signals.c \
+      signals/sig_sig.c \
       builtin/cd.c \
       builtin/echo.c \
       builtin/env.c \
@@ -51,8 +51,7 @@ SRC = signals/sig_helper.c \
       heredoc/heredoc_utils.c \
       heredoc/heredoc_utils1.c \
       heredoc/read_line.c \
-      executor/main.c \
-	  mini_shell.c
+      executor/main.c
 OBJ = $(SRC:.c=.o)
 RM = rm -f
 FLAGC = -Wall -Wextra -Werror #-g -fsanitize=address

@@ -6,7 +6,7 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 20:24:04 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/12 20:25:47 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:45:15 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ int	count_args_red(t_token *token, int type, int i)
 	else if (type == 2)
 		return (j);
 	return (0);
+}
+
+int	get_char_index(char *s, int index, char c)
+{
+	if (index == -1)
+		index = 0;
+	while (s[index] != '\0')
+	{
+		if (s[index] == c)
+			return (index);
+		index++;
+	}
+	return (-1);
 }
 
 char	**ft_handl_args(char *content, char **arv, int type)

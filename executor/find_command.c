@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 20:50:59 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/11 20:51:01 by elel-bah         ###   ########.fr       */
+/*   Created: 2024/09/18 15:04:28 by elel-bah          #+#    #+#             */
+/*   Updated: 2024/09/18 15:04:30 by elel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ char	*find_command(char *cmd, char **envp)
 		return (NULL);
 	full_path = search_command_in_path(path_copy, cmd);
 	free(path_copy);
+	if (cmd[0] == '.' && cmd[1] == '.')
+		return (free(full_path), NULL);
 	return (full_path);
 }

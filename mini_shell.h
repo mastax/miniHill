@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:56:29 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/13 16:56:30 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:45:35 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # define BUFFER_SIZE 1024
 
 /* SIGNALS*/
-void	sig_int(int code);
 void	sig_init(void);
+void	sig_int(int code);
 void	sig_quit(int code);
 int		get_sigint(int n);
 int		get_sigquit(int n);
@@ -110,10 +110,11 @@ void	free_tokens(t_token *tokens);
 int		ft_check_error(t_token *token);
 void	ft_putstr_fd(char *str, int fd);
 
-char    *ft_remove_quotes1(char *s);
-int        ft_remove_quotes(t_token *t, int st1, int st2);
+int		get_char_index(char *s, int index, char c);
+char	*ft_remove_quotes1(char *s);
+int		ft_remove_quotes(t_token *t, int st1, int st2);
 
-int	count_args_red(t_token *token, int type, int i);
+int		count_args_red(t_token *token, int type, int i);
 char	**ft_handl_args(char *content, char **arv, int type);
 
 int		expanding(t_token **token, t_env *env, int exit_status,
@@ -153,7 +154,6 @@ int		ft_expand_herdoc_var(char **var, t_env *env, t_type prv_type, int i);
 int		ft_expand_exit_status(char **var, int exit_status, int i);
 int		get_exit_status(int n);
 
-
 void	track_fd(t_fd_tracker *tracker, int fd);
 void	untrack_fd(t_fd_tracker *tracker, int fd);
 void	close_all_fds(t_fd_tracker *tracker);
@@ -171,4 +171,5 @@ int		check_if_qoutes(char *s);
 int		setup_and_handle_heredocs(t_setup_context *ctx);
 int		process_commands(t_command_context1 *ctx, pid_t *pids);
 void	cleanup_and_return(int *heredoc_fds, int count, t_fd_tracker *tracker);
+
 #endif

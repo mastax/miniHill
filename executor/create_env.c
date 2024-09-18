@@ -1,4 +1,14 @@
-//sel-hasn
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_env.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/16 18:17:59 by sel-hasn          #+#    #+#             */
+/*   Updated: 2024/09/16 18:24:09 by sel-hasn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../mini_shell.h"
 
@@ -65,6 +75,8 @@ t_env	*create_env(char **envp)
 	env = init_env(envp, count);
 	if (!env)
 		return (NULL);
+	if (count == 0)
+		return (env);
 	i = duplicate_env_vars(env, envp, count);
 	if (i < count)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:02:58 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/11 11:03:00 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/16 22:18:20 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,10 @@ int	ft_exports(t_env *env, char **args, int *exit_status)
 		if (command_return == 0)
 			return (0);
 		else if (command_return == 2)
-			get_exit_status(1);
+			*exit_status = 1;
 		i++;
 	}
-	return (1);
+	if (*exit_status == 1)
+		return (get_exit_status(1), 1);
+	return (get_exit_status(0), 1);
 }

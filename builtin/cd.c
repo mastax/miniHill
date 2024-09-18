@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:14:50 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/11 10:14:52 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:32:57 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	ft_change_dir(char **av, t_env *env, int *exit_status)
 		*exit_status = change_to_home(env);
 	else if (ft_strcmp(av[1], "-") == 0)
 		*exit_status = change_to_previous(env);
+	else if (av[1][0] == '\0')
+		return (get_exit_status(0), 0);
 	else
 		*exit_status = chdir(av[1]);
 	if (*exit_status == 1)
@@ -37,8 +39,7 @@ int	ft_change_dir(char **av, t_env *env, int *exit_status)
 	if (*exit_status == -1)
 	{
 		perror("cd");
-		get_exit_status(1);
-		return (1);
+		return (get_exit_status(1), 1);
 	}
 	if (getcwd(new_dir, sizeof(new_dir)) == NULL)
 		return (1);

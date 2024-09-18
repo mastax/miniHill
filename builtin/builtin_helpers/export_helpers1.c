@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_helpers1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 09:45:54 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/11 09:45:57 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/16 19:23:17 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	check_format(char *arg)
 		if (arg[cur] == '=')
 			break ;
 		if (arg[cur] == '-')
+			return (print_error(1, arg), 1);
+		if (arg[cur] == '+')
 			return (print_error(1, arg), 1);
 		cur++;
 	}

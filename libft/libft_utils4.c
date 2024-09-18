@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_utils4.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 20:48:52 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/12 20:48:53 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/16 22:04:49 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_isalpha(int c)
 	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }
 
-char	*ft_strtok(char *str, const char *delim) // leaks in ft_strdup need to prevent
+char	*ft_strtok(char *str, const char *delim)
 {
 	static char	*stock;
 	char		*ptr;
@@ -97,77 +97,10 @@ char	*ft_strtok(char *str, const char *delim) // leaks in ft_strdup need to prev
 		}
 		else if (flg == 1 && ft_strchr(delim, *stock))
 		{
-			*stock = '\0';
-			stock += 1;
+			*stock++ = '\0';
 			break ;
 		}
 		stock += 1;
 	}
 	return (ptr);
 }
-
-
-// char *ft_strtok(char *str, const char *delim) {
-//     static char *stock = NULL;
-//     char *ptr;
-//     int flg = 0;
-
-//     if (str != NULL) {
-//         free(stock);  // Free previous allocation
-//         stock = ft_strdup(str);
-//         if (stock == NULL) return NULL;  // Check for allocation failure
-//     } else if (stock == NULL) {
-//         return NULL;  // Nothing to tokenize
-//     }
-
-//     ptr = stock;
-//     while (*stock != '\0') {
-//         if (flg == 0 && !ft_strchr(delim, *stock)) {
-//             flg = 1;
-//             ptr = stock;
-//         } else if (flg == 1 && ft_strchr(delim, *stock)) {
-//             *stock = '\0';
-//             stock++;
-//             return ptr;
-//         }
-//         stock++;
-//     }
-
-//     if (flg) {
-//         stock = NULL;  // Indicate end of tokenization
-//         return ptr;
-//     }
-
-//     free(stock);  // Free if no token found
-//     stock = NULL;
-//     return NULL;
-// }
-
-// char	*ft_strtok(char *str, const char *delim)
-// {
-// 	static char	*stock;
-// 	char		*ptr;
-// 	int			flg;
-
-// 	flg = 0;
-// 	ptr = NULL;
-// 	stock = NULL;
-// 	if (str != NULL)
-// 		stock = ft_strdup(str);
-// 	while (*stock != '\0')
-// 	{
-// 		if (flg == 0 && !ft_strchr(delim, *stock))
-// 		{
-// 			flg = 1;
-// 			ptr = stock;
-// 		}
-// 		else if (flg == 1 && ft_strchr(delim, *stock))
-// 		{
-// 			*stock = '\0';
-// 			stock += 1;
-// 			break ;
-// 		}
-// 		stock += 1;
-// 	}
-// 	return (ptr);
-// }

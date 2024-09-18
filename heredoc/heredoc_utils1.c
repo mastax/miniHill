@@ -98,37 +98,3 @@ int	setup_and_handle_heredocs(t_setup_context *ctx)
 	}
 	return (process_heredocs(ctx, &fd_tracker));
 }
-
-// int	setup_and_handle_heredocs(t_setup_context *ctx)
-// {
-// 	t_fd_tracker	fd_tracker = {0};
-// 	t_arg			*current_cmd;
-// 	int				heredoc_count;
-
-// 	*(ctx->command_count) = count_commands(ctx->cmd);
-// 	*(ctx->pipe_count) = *(ctx->command_count) - 1;
-// 	save_original_io(ctx->io);
-// 	if (setup_pipes(*(ctx->pipe_count), ctx->pipe_fds, &fd_tracker) != 0)
-// 	{
-// 		restore_io(ctx->io);
-// 		return (1);
-// 	}
-// 	// Process all heredocs
-// 	current_cmd = ctx->cmd;
-// 	while (current_cmd)
-// 	{
-// 		heredoc_count = count_heredocs(current_cmd->red);
-// 		if (heredoc_count > 0)
-// 		{
-// 			current_cmd->heredoc_fds = handle_heredocs(current_cmd->red,
-// 					heredoc_count, ctx->env, &fd_tracker);
-// 			if (!current_cmd->heredoc_fds)
-// 			{
-// 				restore_io(ctx->io);
-// 				return (1);
-// 			}
-// 		}
-// 		current_cmd = current_cmd->next;
-// 	}
-// 	return (0);
-// }

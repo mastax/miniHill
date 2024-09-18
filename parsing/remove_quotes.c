@@ -6,7 +6,7 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:53:21 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/14 16:18:30 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:45:06 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,6 @@ char	*ft_remove_quotes1(char *s)
 	return (s);
 }
 
-int	get_char_index(char *s, int index, char c)
-{
-	if (index == -1)
-		index = 0;
-	while (s[index] != '\0')
-	{
-		if (s[index] == c)
-			return (index);
-		index++;
-	}
-	return (-1);
-}
-
 static int	handle_quote(t_token *t, int *st1, int *st2, char qout)
 {
 	int	end1;
@@ -95,6 +82,8 @@ static int	handle_quote(t_token *t, int *st1, int *st2, char qout)
 	end2 = get_char_index(t->befor_exp, *st2 + 1, qout);
 	if (end1 == -1 || end2 == -1)
 		return (0);
+	if (end1 == (*st1 + 1) && t->befor_exp[end2 + 1] == '$')
+		end1 = get_char_index(t->content, end1 + 1, qout);
 	t->content = ft_remove_char(t->content, *st1);
 	t->content = ft_remove_char(t->content, end1 - 1);
 	t->befor_exp = ft_remove_char(t->befor_exp, *st2);
@@ -109,10 +98,23 @@ static int	handle_quote(t_token *t, int *st1, int *st2, char qout)
 	return (2);
 }
 
+static int	handle_non_matching_content(t_token *t)
+{
+	t->content = ft_remove_quotes1(t->content);
+	if (!t->content)
+	{
+		ft_putstr_fd("minishell: malloc error\n", 2);
+		return (-1);
+	}
+	return (0);
+}
+
 int	ft_remove_quotes(t_token *t, int st1, int st2)
 {
 	int	result;
 
+	if (ft_strcmp(t->befor_exp, t->content) == 0)
+		return (handle_non_matching_content(t));
 	while (t->content[st1] != '\0')
 	{
 		if (t->content[st1] == '\'' || t->content[st1] == '"')

@@ -6,7 +6,7 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:54:16 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/14 16:11:00 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/16 19:09:27 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ char	*ft_handl_appand_herdoc(char *line, int i)
 	}
 	else if (i == 0 && (line[i + 2] != ' ' && line[i + 2] != '\t'))
 		return (ft_add_char(line, i + 2, ' '));
+	else if (line[i + 2] == '\0')
+		line = ft_add_char(line, i, ' ');
 	return (line);
 }
 
@@ -92,16 +94,18 @@ char	*ft_handl_spc_opr(char *line, int i)
 	}
 	else if (i == 0 && (line[i + 1] != ' ' && line[i + 1] != '\t'))
 		return (ft_add_char(line, i + 1, ' '));
+	else if (line[i + 1] == '\0')
+		line = ft_add_char(line, i, ' ');
 	return (line);
 }
 
-char	*ft_add_space(char *line, size_t i)
+char	*ft_add_space(char *line, size_t	i)
 {
 	while (line[i])
 	{
 		if (line[i] == '"' || line[i] == '\'')
 			i = ft_skipe_qoute(line, i) - 1;
-		else if ((i + 2 < ft_strlen(line))
+		else if ((ft_strlen(line) > 2)
 			&& ((line[i] == '>' && line[i + 1] == '>')
 				|| (line[i] == '<' && line[i + 1] == '<')))
 		{
@@ -110,7 +114,7 @@ char	*ft_add_space(char *line, size_t i)
 				return (NULL);
 			i += 2;
 		}
-		else if ((i + 1 < ft_strlen(line)) && is_spc_opr(line, i) == 1)
+		else if ((ft_strlen(line) > 1) && (is_spc_opr(line, i) == 1))
 		{
 			line = ft_handl_spc_opr(line, i);
 			if (!line)

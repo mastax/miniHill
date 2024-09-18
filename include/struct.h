@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 20:34:10 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/12 20:34:12 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/16 22:03:44 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 # include <sys/stat.h>
 
 # define MAX_PIPES 1024
-# define MAX_FD 1024  // Adjust this based on your system's limits
+# define MAX_FD 1024
+
 typedef struct s_fd_tracker
 {
 	int	fd_table[MAX_FD];
@@ -56,7 +57,7 @@ typedef enum s_type
 typedef struct s_tokenz
 {
 	char			*content;
-	char            *befor_exp;
+	char			*befor_exp;
 	int				type;
 	bool			qout_rm;
 	bool			is_empty;
