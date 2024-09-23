@@ -54,14 +54,6 @@ static int	handle_input_redirection(const char *filename)
 
 static int	process_redirection(char **red, int *i)
 {
-	const char	*error_msg;
-
-	if (!red[*i + 1])
-	{
-		error_msg = "Syntax error: missing filename after redirection\n";
-		write(STDERR_FILENO, error_msg, strlen(error_msg));
-		return (-1);
-	}
 	if (ft_strcmp(red[*i], ">") == 0)
 		return (handle_output_redirection(red[*i + 1], O_WRONLY
 				| O_CREAT | O_TRUNC));

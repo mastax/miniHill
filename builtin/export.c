@@ -17,22 +17,25 @@ static int	handle_existing_var_append(t_env *env, char *name,
 {
 	char	*old_value;
 	char	*new_value;
+	char	*tmp;
 
 	old_value = ft_strchr(env->env_vars[i], '=');
 	if (old_value)
 	{
 		old_value++;
-		new_value = ft_concat(old_value, value);
+		tmp = ft_concat(old_value, value);
+		new_value = ft_concat(name, "=");
 		free(env->env_vars[i]);
-		env->env_vars[i] = ft_concat(name, "=");
-		env->env_vars[i] = ft_concat(env->env_vars[i], new_value);
+		env->env_vars[i] = ft_concat(new_value, tmp);
 		free(new_value);
+		free(tmp);
 	}
 	else
 	{
+		tmp = ft_concat(name, "=");
 		free(env->env_vars[i]);
-		env->env_vars[i] = ft_concat(name, "=");
-		env->env_vars[i] = ft_concat(env->env_vars[i], value);
+		env->env_vars[i] = ft_concat(tmp, value);
+		free(tmp);
 	}
 	return (1);
 }
@@ -40,7 +43,8 @@ static int	handle_existing_var_append(t_env *env, char *name,
 static int	handle_existing_var(t_env *env, char *name, char *value,
 		int is_append)
 {
-	int	i;
+	int		i;
+	char	*temp;
 
 	i = 0;
 	while (env->env_vars[i] && ft_strncmp(env->env_vars[i], name,
@@ -52,9 +56,10 @@ static int	handle_existing_var(t_env *env, char *name, char *value,
 		return (1);
 	if (is_append)
 		return (handle_existing_var_append(env, name, value, i));
+	temp = ft_concat(name, "=");
 	free(env->env_vars[i]);
-	env->env_vars[i] = ft_concat(name, "=");
-	env->env_vars[i] = ft_concat(env->env_vars[i], value);
+	env->env_vars[i] = ft_concat(temp, value);
+	free(temp);
 	return (1);
 }
 
@@ -63,6 +68,8 @@ static int	find_and_update_var(t_env *env, char *name, char *value,
 {
 	int		i;
 	size_t	name_len;
+	char	*new_var;
+	char	*temp;
 
 	i = 0;
 	name_len = ft_strlen(name);
@@ -73,6 +80,15 @@ static int	find_and_update_var(t_env *env, char *name, char *value,
 			|| env->env_vars[i][name_len] == '\0'))
 			return (handle_existing_var(env, name, value, is_append));
 		i++;
+	}
+	if (is_append)
+	{
+		temp = ft_concat(name, "=");
+		new_var = ft_concat(temp, value);
+		free(temp);
+		if (!append_new_var(env, new_var))
+			return (free(new_var), 0);
+		return (free(new_var), 1);
 	}
 	return (0);
 }

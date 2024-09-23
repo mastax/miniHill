@@ -38,8 +38,7 @@ static void	init_command_context1(t_command_context1 *ctx,
 void	initialize_loop_iteration(t_token **tokens)
 {
 	*tokens = NULL;
-	get_pid(0);
-	get_sigint(0);
+	get_pid(-1);
 	signal(SIGINT, sig_int);
 	signal(SIGQUIT, sig_quit);
 }
@@ -76,6 +75,8 @@ int	execute_command(t_command_context *context)
 		return (1);
 	}
 	init_command_context1(&cmd_ctx, context, &exec_data);
+	if (get_exit_status(-500) == 1)
+		return (1);
 	result = execute_commands(&cmd_ctx);
 	cleanup_heredoc_fds(context->cmd, context->fd_tracker);
 	return (result);

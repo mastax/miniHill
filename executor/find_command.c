@@ -66,7 +66,11 @@ char	*find_command(char *cmd, char **envp)
 
 	path = get_path_from_env(envp);
 	if (!path)
+	{
+		if (access(cmd, X_OK) == 0)
+			return (cmd);
 		return (NULL);
+	}
 	path_copy = ft_strdup(path);
 	if (!path_copy)
 		return (NULL);

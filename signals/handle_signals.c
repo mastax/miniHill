@@ -18,16 +18,14 @@ void	sig_int(int code)
 	if (get_in_heredoc(-500))
 	{
 		write(STDERR_FILENO, "\n", 1);
-		get_sigint(1);
 		get_exit_status(1);
 	}
-	else if (get_pid(-500) == 0)
+	else if (get_pid(-500) == -1)
 	{
 		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		get_sigint(1);
 		get_exit_status(1);
 	}
 	else
@@ -49,12 +47,4 @@ void	sig_quit(int code)
 		get_sigquit(1);
 	}
 	free(nbr);
-}
-
-void	sig_init(void)
-{
-	get_sigint(0);
-	get_sigquit(0);
-	get_pid(0);
-	get_exit_status(0);
 }

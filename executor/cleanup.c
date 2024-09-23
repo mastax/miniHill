@@ -66,8 +66,11 @@ void	cleanup_heredoc_fds(t_arg *cmd, t_fd_tracker *fd_tracker)
 	current_cmd = cmd;
 	while (current_cmd)
 	{
-		if (current_cmd->heredoc_fds)
+		if (current_cmd->heredoc_fds != NULL)
+		{
 			cleanup_command_heredocs(current_cmd, fd_tracker);
+			free(current_cmd->heredoc_fds);
+		}
 		current_cmd = current_cmd->next;
 	}
 }

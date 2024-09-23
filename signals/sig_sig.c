@@ -12,14 +12,6 @@
 
 #include "../mini_shell.h"
 
-int	get_sigint(int n)
-{
-	static int	v;
-
-	if (n != -500)
-		v = n;
-	return (v);
-}
 
 int	get_sigquit(int n)
 {

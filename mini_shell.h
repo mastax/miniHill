@@ -24,10 +24,8 @@
 # define BUFFER_SIZE 1024
 
 /* SIGNALS*/
-void	sig_init(void);
 void	sig_int(int code);
 void	sig_quit(int code);
-int		get_sigint(int n);
 int		get_sigquit(int n);
 int		get_pid(int n);
 int		get_in_heredoc(int n);

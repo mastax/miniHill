@@ -33,20 +33,20 @@ SRC = signals/handle_signals.c \
       builtin/builtin_helpers/export_helpers1.c \
       builtin/builtin_helpers/set_env_value.c \
       redirections/redirections.c \
-      parsing/check_error.c \
-      parsing/expanding.c \
-      parsing/expanding_utils.c \
-      parsing/list_utils.c \
-      parsing/parsing.c \
-      parsing/remove_quotes.c \
-      parsing/token_to_args.c \
-      parsing/utils.c \
-      parsing/utils1.c \
-      parsing/utils2.c \
-      parsing/token_to_arg_helper.c \
-      parsing/expanding_helper.c \
-      parsing/expand_exit_status.c\
-      parsing/arg_utils.c \
+      lexer/check_error.c \
+      lexer/list_utils.c \
+      lexer/parsing.c \
+      lexer/remove_quotes.c \
+      lexer/utils.c \
+      lexer/utils1.c \
+      lexer/utils2.c \
+      parser/token_to_args.c \
+      parser/token_to_arg_helper.c \
+      parser/arg_utils.c \
+      expander/expanding.c \
+      expander/expanding_utils.c \
+      expander/expand_exit_status.c\
+      expander/expanding_helper.c \
       heredoc/heredoc.c \
       heredoc/heredoc_utils.c \
       heredoc/heredoc_utils1.c \
@@ -57,6 +57,8 @@ RM = rm -f
 FLAGC = -Wall -Wextra -Werror #-g -fsanitize=address
 LDFLAGS = -lreadline
 HEADER = mini_shell.h
+HEADER1 = include/struct.h
+HEADER2 = include/libft.h
 READLINEDIR = $(shell brew --prefix readline)
 LDFLAGS = -L$(READLINEDIR)/lib -lreadline
 CPPFLAGS = -I$(READLINEDIR)/include
@@ -66,7 +68,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(FLAGC) -o $(NAME) $(LDFLAGS)
 
-%.o: %.c $(HEADER)
+%.o: %.c $(HEADER) $(HEADER1) $(HEADER2)
 	$(CC) $(FLAGC) $(CPPFLAGS) -c $< -o $@
 
 clean:

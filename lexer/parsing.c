@@ -6,7 +6,7 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:54:16 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/16 19:09:27 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/21 20:16:00 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,14 @@ int	parsing(char *line, t_token	**token, t_env *env, int exit_status)
 
 	line = ft_add_space(line, 0);
 	if (ft_check_qoutes(line) == -1)
-		return (-1);
+		return (free(line), -1);
 	line = ft_compress_spaces(line);
 	if (get_token(token, line, 1) == -1)
-		return (-1);
+		return (free(line), -1);
 	if (*token == NULL)
-		return (0);
+		return (free(line), 0);
 	if (expanding(token, env, exit_status, WORD) == -1)
-		return (-1);
+		return (free(line), -1);
 	tmp = *token;
 	while (tmp)
 	{
@@ -147,7 +147,7 @@ int	parsing(char *line, t_token	**token, t_env *env, int exit_status)
 			tmp->is_empty = true;
 		if (tmp->qout_rm == true && tmp->type != HER_DOC)
 			if (ft_remove_quotes(tmp, 0, 0) == -1)
-				return (-1);
+				return (free(line), -1);
 		if (tmp->type == HER_DOC && tmp->next != NULL)
 			tmp = tmp->next;
 		tmp = tmp->next;

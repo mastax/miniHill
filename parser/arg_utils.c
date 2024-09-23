@@ -45,6 +45,7 @@ t_arg	*ft_arg_new(int fd)
 		return (ft_putstr_fd("Error\n can't malloc for new_arg\n", fd), NULL);
 	arg->arg = NULL;
 	arg->red = NULL;
+	arg->heredoc_fds = NULL;
 	arg->next = NULL;
 	return (arg);
 }

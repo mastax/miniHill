@@ -25,7 +25,7 @@ int	check_format(char *arg)
 			break ;
 		if (arg[cur] == '-')
 			return (print_error(1, arg), 1);
-		if (arg[cur] == '+')
+		if (arg[cur] == '+' && arg[cur + 1] != '=')
 			return (print_error(1, arg), 1);
 		cur++;
 	}
