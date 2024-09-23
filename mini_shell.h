@@ -88,9 +88,8 @@ int		wait_for_children(pid_t *pids, int command_count, int *exit_status);
 void	free_tokens(t_token *tokens);
 void	free_command(t_arg *cmd);
 
-
 /*parsing*/
-// //
+
 int		ft_var_update(int i, char **var, char *to_update, char	*secend_part);
 int		is_valid_var(char c);
 t_token	*ft_list_new(char *token, int z);

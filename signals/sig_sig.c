@@ -12,7 +12,6 @@
 
 #include "../mini_shell.h"
 
-
 int	get_sigquit(int n)
 {
 	static int	v;
