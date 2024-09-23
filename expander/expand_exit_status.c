@@ -95,7 +95,7 @@ int	ft_handle_dolar(char **var, int *i)
 	var[0] = ft_remove_char(var[0], *i);
 	if (!var[0])
 	{
-		ft_putstr_fd("minishell : mlloc error\n", 2);
+		ft_putstr_fd("minishell : malloc error\n", 2);
 		return (-1);
 	}
 	return (0);
@@ -107,7 +107,7 @@ int	ft_expand_exit_status(char **var, int exit_status, int i)
 
 	while (var[0][i] != '\0')
 	{
-		if (var[0][i] == '\'')
+		if (var[0][i] == '\'' && check_induble(*var, i) == 0)
 			i = ft_skipe_qoute(*var, i);
 		else if (var[0][i] == '$' && var[0][i + 1] == '?')
 		{

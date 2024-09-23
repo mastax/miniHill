@@ -97,6 +97,6 @@ int	ft_handl_spichel_cond(t_token **token, t_token *now, t_token *next_token
 		tmp = tmp->next;
 	tmp->next = next_token;
 	free(now->content);
-	free(now);
-	return (0);
+	free(now->befor_exp);
+	return (free(now), 0);
 }

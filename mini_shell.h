@@ -88,8 +88,6 @@ int		wait_for_children(pid_t *pids, int command_count, int *exit_status);
 void	free_tokens(t_token *tokens);
 void	free_command(t_arg *cmd);
 
-/*free the list*/
-// void free_command_list(t_arg *cmd_list);
 
 /*parsing*/
 // //

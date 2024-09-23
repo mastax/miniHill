@@ -46,7 +46,7 @@ char	*ft_handl_appand_herdoc(char *line, int i)
 	int	len;
 
 	len = ft_strlen(line);
-	if (i > 0 && i + 1 < len)
+	if (i > 0 && i + 2 < len)
 	{
 		if ((line[i - 1] != ' ' && line[i - 1] != '\t')
 			&& (line[i + 2] != ' ' && line[i + 2] != '\t'))

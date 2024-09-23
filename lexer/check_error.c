@@ -41,7 +41,7 @@ int	ft_check_error(t_token *token)
 	if (token->type == PIPE)
 	{
 		ft_putstr_fd("syntax error near unexpected token '", 2);
-		ft_putstr_fd(token->next->content, 2);
+		ft_putstr_fd(token->content, 2);
 		ft_putstr_fd("'\n", 2);
 		return (258);
 	}
