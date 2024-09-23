@@ -89,8 +89,10 @@ int	main_shell_loop(t_env *env, t_fd_tracker *fd_tracker)
 {
 	char	*input;
 	t_token	*tokens;
+	int		is_interactive;
 
-	while (1)
+	is_interactive = isatty(STDIN_FILENO);
+	while (is_interactive)
 	{
 		initialize_loop_iteration(&tokens);
 		input = readline(GREEN"minishell> "RESET);

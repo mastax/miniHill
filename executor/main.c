@@ -90,26 +90,3 @@ int	main(int ac, char **av, char **envp)
 	close_all_fds(&fd_tracker);
 	return (status);
 }
-
-// int	main(int ac, char **av, char **envp)
-// {
-// 	t_env			*env;
-// 	int				status;
-// 	t_fd_tracker	fd_tracker;
-
-// 	(void)ac;
-// 	(void)av;
-// 	ft_memset(&fd_tracker, 0, sizeof(fd_tracker));
-// 	// fd_tracker = {0};
-// 	rl_catch_signals = 0;
-// 	env = create_env(envp);
-// 	if (!env)
-// 	{
-// 		fprintf(stderr, "Failed to create environment\n");
-// 		return (1);
-// 	}
-// 	status = main_shell_loop(env, &fd_tracker);
-// 	free_env(env);
-// 	close_all_fds(&fd_tracker);
-// 	return (status);
-// }

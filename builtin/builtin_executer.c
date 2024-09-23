@@ -19,7 +19,7 @@ int	execute_builtin_p(t_arg *cmd, t_env *env, int *exit_status)
 	if (ft_strcmp(cmd->arg[0], "cd") == 0)
 		return (ft_change_dir(cmd->arg, env, exit_status));
 	else if (ft_strcmp(cmd->arg[0], "exit") == 0)
-		return (ft_exit(cmd->arg, exit_status));
+		return (ft_exit(cmd->arg, exit_status, 0));
 	else if (ft_strcmp(cmd->arg[0], "export") == 0)
 		return (ft_exports(env, cmd->arg, exit_status));
 	else if (ft_strcmp(cmd->arg[0], "unset") == 0)
@@ -45,7 +45,7 @@ int	execute_builtin_ch(t_arg *cmd, t_env *env, int *exit_status)
 		return (1);
 	}
 	else if (ft_strcmp(cmd->arg[0], "exit") == 0)
-		return (ft_exit(cmd->arg, exit_status));
+		return (ft_exit(cmd->arg, exit_status, 1));
 	else if (ft_strcmp(cmd->arg[0], "export") == 0)
 		return (ft_exports(env, cmd->arg, exit_status));
 	else if (ft_strcmp(cmd->arg[0], "pwd") == 0)

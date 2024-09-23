@@ -59,7 +59,7 @@ int		parse_export_string(char *s, char **name, char **value, int *is_append);
 int		ft_change_dir(char **av, t_env *env, int *exit_status);
 int		ft_env(t_env *env);
 int		ft_echo(char **av);
-int		ft_exit(char **av, int *exit_status);
+int		ft_exit(char **av, int *exit_status, int pid);
 int		pwd(int fd);
 int		ft_exports(t_env *env, char **args, int *exit_status);
 int		ft_unsets(t_env *env, char **args, int *exit_status);

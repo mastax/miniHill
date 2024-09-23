@@ -66,12 +66,13 @@ static long long	ft_strtoll(const char *nptr, char **endptr, int base)
 	return (sign * result);
 }
 
-int	ft_exit(char **av, int *exit_status)
+int	ft_exit(char **av, int *exit_status, int pid)
 {
 	long long	exit_code;
 	char		*endptr;
 
-	printf("exit\n");
+	if (pid == 0)
+		printf("exit\n");
 	if (!av[1])
 		exit(*exit_status);
 	errno = 0;
