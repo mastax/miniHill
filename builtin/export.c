@@ -100,7 +100,7 @@ int	ft_export(t_env *env, char *s)
 	int		is_append;
 
 	is_append = 0;
-	if (check_format(s) == 1)
+	if (check_format(s, 1) == 1)
 		return (2);
 	parse_export_string(s, &name, &value, &is_append);
 	if (!find_and_update_var(env, name, value, is_append))

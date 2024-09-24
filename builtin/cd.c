@@ -25,7 +25,7 @@ int	ft_change_dir(char **av, t_env *env, int *exit_status)
 	char	new_dir[PATH_MAX];
 
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
-		return (handle_getcwd_failure("No such file or directory\n"));
+		handle_getcwd_failure("No such file or directory\n");
 	if (!av[1])
 		*exit_status = change_to_home(env);
 	else if (ft_strcmp(av[1], "-") == 0)

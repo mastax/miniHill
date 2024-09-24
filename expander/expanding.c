@@ -12,7 +12,7 @@
 
 #include "../mini_shell.h"
 
-char	*get_var_from_env(char *var, int var_len, t_env *env)
+char	*get_var_from_env(char *var, size_t var_len, t_env *env)
 {
 	int	i;
 

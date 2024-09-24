@@ -12,7 +12,7 @@
 
 #include "../../mini_shell.h"
 
-int	check_format(char *arg)
+int	check_format(char *arg, int type)
 {
 	int	cur;
 
@@ -21,13 +21,16 @@ int	check_format(char *arg)
 	cur = 0;
 	while (arg[cur] != '\0')
 	{
-		if (arg[cur] == '=')
+		if (type == 1 && arg[cur] == '=')
 			break ;
-		if (arg[cur] == '-')
+		if (type == 1 && arg[cur] == '+' && arg[cur + 1] == '=')
+			cur++;
+		if (type == 1 && arg[cur] == '=')
+			break ;
+		if (ft_isalnum(arg[cur]) == 1 || arg[cur] == '_')
+			cur++;
+		else
 			return (print_error(1, arg), 1);
-		if (arg[cur] == '+' && arg[cur + 1] != '=')
-			return (print_error(1, arg), 1);
-		cur++;
 	}
 	return (0);
 }

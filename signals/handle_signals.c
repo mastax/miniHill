@@ -39,7 +39,7 @@ void	sig_quit(int code)
 	char	*nbr;
 
 	nbr = ft_itoa(code);
-	if (get_pid(-500) != 0)
+	if (get_pid(-500) != -1)
 	{
 		ft_putstr_fd("Quit: ", STDERR_FILENO);
 		ft_putendl_fd(nbr, STDERR_FILENO);

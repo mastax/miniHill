@@ -49,7 +49,7 @@ int		change_to_home(t_env *env);
 int		change_to_previous(t_env *env);
 					/*PIP - HELPER FUNCTIONS*/
 
-int		check_format(char *arg);
+int		check_format(char *arg, int type);
 int		print_error(int error_code, char *content);
 void	print_sorted_env(t_env *env);
 int		parse_export_string(char *s, char **name, char **value, int *is_append);
@@ -142,7 +142,7 @@ int		expand_variable(char **line, t_env *env);
 int		write_to_pipe(int pipefd[2], char *line);
 
 int		ft_expand_variable(t_token *t, t_env *env, t_type prv_type, int i);
-char	*get_var_from_env(char *var, int var_len, t_env *env);
+char	*get_var_from_env(char *var, size_t var_len, t_env *env);
 int		ft_var_update(int i, char **var, char *to_update, char	*secend_part);
 int		ft_expand_herdoc_var(char **var, t_env *env, t_type prv_type, int i);
 

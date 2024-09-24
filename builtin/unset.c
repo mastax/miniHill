@@ -47,7 +47,7 @@ int	ft_unsets(t_env *env, char **args, int *exit_status)
 	track_err = 0;
 	while (args[i])
 	{
-		if (check_format(args[i]) == 1)
+		if (check_format(args[i], 2) == 1)
 			track_err = 1;
 		else
 			unset_env_value(env, args[i]);

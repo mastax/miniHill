@@ -54,7 +54,7 @@ SRC = signals/handle_signals.c \
       executor/main.c
 OBJ = $(SRC:.c=.o)
 RM = rm -f
-FLAGC = -Wall -Wextra -Werror -g -fsanitize=address
+FLAGC = -Wall -Wextra -Werror #-g -fsanitize=address
 LDFLAGS = -lreadline
 HEADER = mini_shell.h
 HEADER1 = include/struct.h

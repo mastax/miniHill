@@ -40,19 +40,21 @@ int	check_induble(char *s, int i)
 
 int	ft_strncmp(char *s1, const char *s2, size_t n)
 {
-	size_t			i;
+	size_t			it;
 	unsigned char	*str1;
 	unsigned char	*str2;
 
 	str1 = (unsigned char *)s1;
 	str2 = (unsigned char *)s2;
-	i = 0;
-	while (i < n && (str1[i] != '\0' && str2[i] != '\0'))
+	it = 0;
+	while (s1[it] != '\0' && s2[it] != '\0' && it < n)
 	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
-		i++;
+		if (s1[it] != s2[it])
+			return (s1[it] - s2[it]);
+		++it;
 	}
+	if (it != n)
+		return (s1[it] - s2[it]);
 	return (0);
 }
 
