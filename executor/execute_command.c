@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 20:45:19 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/11 20:45:21 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:18:03 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	execute_commands(t_command_context1 *ctx)
 	cleanup_pipes(ctx);
 	result = 0;
 	if (child_count > 0)
-		result = wait_for_children(pids, child_count, ctx->exit_status);
+		result = wait_for_children(pids, child_count, ctx->exit_status, 0);
 	restore_io(ctx->io);
 	return (result);
 }

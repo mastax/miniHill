@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:04:58 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/12 15:05:00 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:59:14 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	*handle_heredocs(char **red, int count, t_env *env, t_fd_tracker *tracker)
 			return (cleanup_and_return(heredoc_fds, i, tracker), NULL);
 		heredoc_fds[i] = create_heredoc(processed_delimiter, env, tracker);
 		free(processed_delimiter);
-		if (heredoc_fds[i] == -1)
+		if (heredoc_fds[i] == -1 || get_exit_status(-500) == 1)
 			return (cleanup_and_return(heredoc_fds, i, tracker), NULL);
 		i++;
 	}

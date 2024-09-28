@@ -6,11 +6,41 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:13:35 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/14 16:18:38 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/28 09:48:12 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
+
+void	ambiguous_error(char *arg)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd(": ambiguous redirect\n", 2);
+}
+
+int	ft_count_sp_tb(char *s)
+{
+	int	i;
+	int	sp_tb;
+
+	i = 0;
+	sp_tb = 0;
+	if (!s)
+		return (0);
+	if (s[i] == '\0')
+		return (0);
+	if (((s[0] == '|' || s[0] == '>' || s[0] == '<') && s[1] == '\0')
+		|| (s[0] == '>' && s[1] == '>') || (s[0] == '<' && s[1] == '<'))
+		return (0);
+	while (s[i])
+	{
+		if (s[i] == ' ' || s[i] == '\t')
+			sp_tb++;
+		i++;
+	}
+	return (sp_tb);
+}
 
 char	*ft_remove_char(char *s, unsigned int index)
 {
@@ -37,19 +67,19 @@ char	*ft_remove_char(char *s, unsigned int index)
 	return (str);
 }
 
-int	expanding_helper(char *s, int i)
+int	expanding_helper(t_token *t, int i)
 {
 	int	j;
 
 	j = i;
-	if (s[i] == '\'')
+	if (t->content[i] == '\'')
 	{
 		i++;
-		while (s[i] != '\0' && s[i] != '\'')
+		while (t->content[i] != '\0' && t->content[i] != '\'')
 			i++;
-		if (s[i] == '\'')
+		if (t->content[i] == '\'')
 			i++;
-		else if (s[i] == '\0')
+		else if (t->content[i] == '\0')
 		{
 			j++;
 			return (j);

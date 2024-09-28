@@ -1,6 +1,5 @@
 NAME = minishell
 CC = cc
-     
 SRC = signals/handle_signals.c \
       signals/sig_sig.c \
       builtin/cd.c \
@@ -44,6 +43,7 @@ SRC = signals/handle_signals.c \
       parser/token_to_arg_helper.c \
       parser/arg_utils.c \
       expander/expanding.c \
+      expander/expand_var.c \
       expander/expanding_utils.c \
       expander/expand_exit_status.c\
       expander/expanding_helper.c \

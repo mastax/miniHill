@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 10:52:04 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/19 10:52:06 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:20:03 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	sig_quit(int code)
 	nbr = ft_itoa(code);
 	if (get_pid(-500) != -1)
 	{
-		ft_putstr_fd("Quit: ", STDERR_FILENO);
-		ft_putendl_fd(nbr, STDERR_FILENO);
 		get_exit_status(131);
 		get_sigquit(1);
 	}

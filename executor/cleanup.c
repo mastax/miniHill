@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 20:19:18 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/11 20:19:21 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:28:54 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,11 @@ void	cleanup_and_return(int *heredoc_fds, int count, t_fd_tracker *tracker)
 		close(heredoc_fds[j]);
 		untrack_fd(tracker, heredoc_fds[j]);
 		j++;
+	}
+	if (get_exit_status(-500) == 1)
+	{
+		close(heredoc_fds[count]);
+		untrack_fd(tracker, heredoc_fds[count]);
 	}
 	free(heredoc_fds);
 }

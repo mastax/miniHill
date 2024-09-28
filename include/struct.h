@@ -6,7 +6,7 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 20:34:10 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/16 22:03:44 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:33:26 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ typedef struct s_tokenz
 {
 	char			*content;
 	char			*befor_exp;
+	bool			had_exp;
 	int				type;
 	bool			qout_rm;
 	bool			is_empty;
 	int				j;
+	int				i;
 	struct s_tokenz	*next;
 }	t_token;
 

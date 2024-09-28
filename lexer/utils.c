@@ -6,11 +6,26 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:45:04 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/12 20:17:02 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/27 22:04:20 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
+
+char	*get_var_from_env(char *var, size_t var_len, t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (env->env_vars[i] != NULL)
+	{
+		if (ft_strncmp(env->env_vars[i], var, var_len) == 0
+			&& env->env_vars[i][var_len] == '=')
+			return (&(env->env_vars[i][var_len + 1]));
+		i++;
+	}
+	return (NULL);
+}
 
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {

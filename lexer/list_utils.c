@@ -6,7 +6,7 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:55:02 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/13 15:04:06 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:33:42 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,13 @@ t_token	*ft_list_new(char *token, int z)
 	{
 		data->type = ft_get_type(token);
 		data->qout_rm = true;
+		data->had_exp = false;
 	}
 	else if (z == 2)
 	{
 		data->type = WORD;
 		data->qout_rm = false;
+		data->had_exp = true;
 	}
 	data->is_empty = false;
 	data->next = NULL;

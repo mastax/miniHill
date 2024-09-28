@@ -6,9 +6,12 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:56:29 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/17 16:45:35 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:21:39 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// while true;do leaks minishell; sleep 1;done
+// while true; do lsof -c minishell;sleep 2; clear;done
 
 #ifndef MINI_SHELL_H
 # define MINI_SHELL_H
@@ -84,7 +87,8 @@ void	configure_child_io(t_command_context1 *ctx, t_arg *current_cmd,
 			int cmd_index);
 void	cleanup_parent_process(int *heredoc_fds, int heredoc_count);
 int		count_commands(t_arg *cmd);
-int		wait_for_children(pid_t *pids, int command_count, int *exit_status);
+int		wait_for_children(pid_t *pids, int command_count, int *exit_status,
+			int status);
 void	free_tokens(t_token *tokens);
 void	free_command(t_arg *cmd);
 
@@ -97,7 +101,7 @@ char	*ft_compress_spaces(char *s);
 int		ft_check_qoutes(char	*line);
 int		ft_skipe_qoute(char	*s, int i);
 int		ft_name_len(char *var, int i);
-int		ft_have_sp_tb(char *s);
+int		ft_count_sp_tb(char *s);
 int		ft_handl_spichel_cond(t_token **token, t_token *now,
 			t_token *next_token, t_type	*prv_type);
 int		get_token(t_token **token, char	*s, int z);
@@ -114,7 +118,11 @@ char	**ft_handl_args(char *content, char **arv, int type);
 
 int		expanding(t_token **token, t_env *env, int exit_status,
 			t_type prv_type);
-int		expanding_helper(char *s, int i);
+int		had_qout(char *s);
+void	ambiguous_error(char *arg);
+int		handle_spp_case(char *s);
+int		check_if_more_to_expand(char *s, int i);
+int		expanding_helper(t_token *t, int i);
 int		ft_skipe_spaces(char *s, int index);
 char	*ft_remove_char(char *s, unsigned int index);
 void	ft_lstadd_back(t_token **lst, t_token *new);

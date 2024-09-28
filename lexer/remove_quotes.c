@@ -6,7 +6,7 @@
 /*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:53:21 by sel-hasn          #+#    #+#             */
-/*   Updated: 2024/09/17 16:45:06 by sel-hasn         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:04:54 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ static int	handle_quote(t_token *t, int *st1, int *st2, char qout)
 	end2 = get_char_index(t->befor_exp, *st2 + 1, qout);
 	if (end1 == -1 || end2 == -1)
 		return (0);
-	if (end1 == (*st1 + 1) && t->befor_exp[end2 + 1] == '$')
+	if (end1 == (*st1 + 1) && end2 != (*st2 + 1)
+		&& t->befor_exp[end2 + 1] == '$')
 		end1 = get_char_index(t->content, end1 + 1, qout);
 	t->content = ft_remove_char(t->content, *st1);
 	t->content = ft_remove_char(t->content, end1 - 1);

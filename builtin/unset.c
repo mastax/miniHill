@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:20:45 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/11 11:20:48 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:49:30 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ int	ft_unsets(t_env *env, char **args, int *exit_status)
 		i++;
 	}
 	*exit_status = track_err;
+	get_exit_status(*exit_status);
 	return (1);
 }

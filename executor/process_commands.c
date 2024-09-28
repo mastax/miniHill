@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:37:39 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/14 18:37:41 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:24:01 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	handle_parent_process(t_command_context1 *ctx, t_arg *current_cmd,
 		pid_t *pids, int cmd_index)
 {
+	signal(SIGINT, SIG_IGN);
 	pids[cmd_index] = fork();
 	if (pids[cmd_index] == -1)
 	{
@@ -24,6 +25,8 @@ static int	handle_parent_process(t_command_context1 *ctx, t_arg *current_cmd,
 	}
 	else if (pids[cmd_index] == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		configure_child_io(ctx, current_cmd, cmd_index);
 		execute_child_process_part1(ctx, current_cmd);
 	}

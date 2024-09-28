@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elel-bah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-hasn <sel-hasn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 21:04:32 by elel-bah          #+#    #+#             */
-/*   Updated: 2024/09/11 21:04:33 by elel-bah         ###   ########.fr       */
+/*   Updated: 2024/09/28 10:43:12 by sel-hasn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,34 @@ int	count_commands(t_arg *cmd)
 	return (count);
 }
 
-int	wait_for_children(pid_t *pids, int command_count, int *exit_status)
+static void	handle_signal_termination(int status, int *exit_status)
 {
-	int	status;
+	if (WTERMSIG(status) == SIGINT)
+	{
+		*exit_status = 130;
+		write(2, "\n", 1);
+	}
+	else if (WTERMSIG(status) == SIGQUIT)
+	{
+		*exit_status = 131;
+		write(2, "Quit: 3\n", 9);
+	}
+}
+
+int	wait_for_children(pid_t *pids, int command_count, int *exit_status
+, int status)
+{
 	int	i;
 
 	i = 0;
 	while (i < command_count)
 	{
 		if (waitpid(pids[i], &status, 0) == -1)
-		{
-			perror("waitpid");
-			return (1);
-		}
+			return (perror("waitpid"), 1);
 		if (WIFEXITED(status))
 			*exit_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			*exit_status = 128 + WTERMSIG(status);
+			handle_signal_termination(status, exit_status);
 		if (i == command_count - 1)
 			get_exit_status(*exit_status);
 		i++;
